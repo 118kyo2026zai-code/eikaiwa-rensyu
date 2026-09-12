@@ -23,7 +23,6 @@ body{
     "Hiragino Kaku Gothic ProN",
     sans-serif;
 
-  /* 真っ白ではなく、目にやさしい背景 */
   background:#f3f0e8;
 
   color:#333;
@@ -38,10 +37,6 @@ select{
 
 button{
   cursor:pointer;
-}
-
-.hidden{
-  display:none !important;
 }
 
 
@@ -65,6 +60,7 @@ button{
   background:#fffdf8;
 
   border:1px solid #d8d3c8;
+
   border-radius:12px;
 
   padding:42px 30px 36px;
@@ -258,7 +254,7 @@ button{
 }
 
 .questionLabel{
-  font-size:15px;
+  font-size:18px;
 
   color:#777;
 
@@ -303,7 +299,7 @@ button{
 .speedArea{
   margin:0 auto 20px;
 
-  font-size:14px;
+  font-size:16px;
 
   color:#666;
 }
@@ -522,12 +518,20 @@ button{
     margin-bottom:12px;
   }
 
+  .questionLabel{
+    font-size:17px;
+  }
+
   .question{
     font-size:30px;
   }
 
   .questionJa{
     font-size:17px;
+  }
+
+  .speedArea{
+    font-size:15px;
   }
 
   .buttons{
@@ -684,20 +688,20 @@ button{
 
 
       <!--
-        最初は？？？だけ表示。
-        英語の質問は音声でのみ提示。
+        最初は英語の質問を隠す
       -->
 
       <div
         id="question"
         class="question">
+
         ？？？
+
       </div>
 
 
       <!--
-        日本語訳も最初は非表示。
-        「もう一回聞く」で表示。
+        最初は日本語訳も隠す
       -->
 
       <div
@@ -714,22 +718,28 @@ button{
         話す速さ：
 
         <label>
+
           <input
             type="radio"
             name="speed"
             value="1"
             checked
           >
+
           ナチュラル
+
         </label>
 
         <label>
+
           <input
             type="radio"
             name="speed"
             value="0.75"
           >
+
           ゆっくり
+
         </label>
 
       </div>
@@ -830,16 +840,20 @@ button{
    データを取得
 ===================================== */
 
-/*
-  conversationData.js の書き方によって
-  データの名前が違っても対応できるようにする。
-
-  まず conversationData、
-  次に data を探す。
-*/
-
 let allConversationData = null;
 
+
+/*
+  conversationData.js の中身が
+
+  const conversationData = [...]
+  または
+  let conversationData = [...]
+  または
+  window.conversationData = [...]
+
+  の場合に対応。
+*/
 
 if(
   Array.isArray(window.conversationData)
@@ -851,6 +865,11 @@ if(
 }
 
 
+/*
+  これまでの瞬間英作文と同じ
+  data という名前の場合にも対応。
+*/
+
 else if(
   Array.isArray(window.data)
 ){
@@ -860,6 +879,11 @@ else if(
 
 }
 
+
+/*
+  グローバル変数として
+  conversationData が存在する場合。
+*/
 
 else if(
   typeof conversationData !== "undefined" &&
@@ -873,8 +897,22 @@ else if(
 
 
 /*
-  データが見つからなかった場合だけ
-  エラーを表示する。
+  data がグローバル変数の場合。
+*/
+
+else if(
+  typeof data !== "undefined" &&
+  Array.isArray(data)
+){
+
+  allConversationData =
+    data;
+
+}
+
+
+/*
+  データが見つからなかった場合
 */
 
 if(!allConversationData){
@@ -1285,7 +1323,11 @@ function showQuestion(){
 
   /*
     新しい問題では
-    英語も日本語も隠す。
+
+    英語の質問 → 隠す
+    日本語訳 → 隠す
+
+    ？？？だけ表示する。
   */
 
   question.textContent =
@@ -1296,7 +1338,7 @@ function showQuestion(){
 
 
   /*
-    答え方の例は最初から表示。
+    答え方の例は最初から表示
   */
 
   exampleAnswer.textContent =
@@ -1304,12 +1346,16 @@ function showQuestion(){
 
 
   /*
-    回答欄をリセット。
+    回答欄をリセット
   */
 
   voiceText.textContent =
     "ここに英語が表示されます";
 
+
+  /*
+    判定結果をリセット
+  */
 
   judgeResult.textContent =
     "";
@@ -1319,7 +1365,7 @@ function showQuestion(){
 
 
   /*
-    進み具合。
+    進み具合
   */
 
   progress.textContent =
@@ -1333,7 +1379,8 @@ function showQuestion(){
 
 
   /*
-    少し待って質問を読み上げる。
+    少し待ってから
+    英語の質問を読み上げる。
   */
 
   setTimeout(
@@ -1369,6 +1416,11 @@ function speakQuestion(){
     currentData[current];
 
 
+  /*
+    画面に表示していなくても、
+    データに入っている質問を読み上げる。
+  */
+
   const utterance =
     new SpeechSynthesisUtterance(
       item.question
@@ -1393,7 +1445,7 @@ function speakQuestion(){
 
   /*
     質問を読み終わったら
-    自動的に聞き取り開始。
+    自動的に回答を聞く。
   */
 
   utterance.onend =
@@ -1434,8 +1486,8 @@ repeatButton.addEventListener(
 
 
     /*
-      ここで初めて
-      英語と日本語を表示。
+      「もう一回聞く」を押したら
+      英語の質問と日本語訳を表示する。
     */
 
     question.textContent =
@@ -1446,7 +1498,7 @@ repeatButton.addEventListener(
 
 
     /*
-      判定をリセット。
+      判定結果をリセット
     */
 
     isJudging = false;
@@ -1458,12 +1510,16 @@ repeatButton.addEventListener(
       "";
 
 
+    /*
+      回答欄をリセット
+    */
+
     voiceText.textContent =
       "ここに英語が表示されます";
 
 
     /*
-      もう一度質問を読み上げる。
+      もう一度質問を読み上げる
     */
 
     speakQuestion();
@@ -1504,7 +1560,9 @@ function setupRecognition(){
 
 
   /*
-    連続認識。
+    連続認識にすることで、
+    考えている時間が長くても
+    できるだけ聞き続ける。
   */
 
   recognition.continuous =
@@ -1566,6 +1624,10 @@ function setupRecognition(){
   recognition.onerror =
     function(event){
 
+      /*
+        マイク許可がない場合
+      */
+
       if(
         event.error === "not-allowed" ||
         event.error === "service-not-allowed"
@@ -1580,6 +1642,11 @@ function setupRecognition(){
 
       }
 
+
+      /*
+        無音などは
+        すぐエラー扱いにしない。
+      */
 
       if(
         event.error === "no-speech" ||
@@ -1599,9 +1666,6 @@ function setupRecognition(){
       /*
         判定していない間は
         認識を再開する。
-
-        子どもが考えている時間が長くても
-        できるだけ待つ。
       */
 
       if(
@@ -1755,6 +1819,10 @@ function judgeAnswer(){
     );
 
 
+  /*
+    何も認識されなかった場合
+  */
+
   if(
     !userText ||
     userText ===
@@ -1777,8 +1845,8 @@ function judgeAnswer(){
 
 
   /*
-    patterns があれば複数、
-    なければ pattern 1つ。
+    patterns が複数あれば複数、
+    なければ pattern を使用。
   */
 
   const patterns =
@@ -1799,11 +1867,11 @@ function judgeAnswer(){
 
 
     /*
-      例：
-
-      I want a ball.
+      例えば
 
       pattern = I want
+
+      I want a ball.
 
       → 正解
 
@@ -1831,6 +1899,10 @@ function judgeAnswer(){
 
   if(correct){
 
+    /*
+      まず判定結果を表示。
+    */
+
     judgeResult.textContent =
       "◎ いい答えです！";
 
@@ -1838,7 +1910,32 @@ function judgeAnswer(){
       "resultCorrect";
 
 
-    speakExample();
+    /*
+      すぐに例文を読まず、
+      1.2秒待つ。
+
+      子どもが
+      「正解だった」
+      と確認する時間を作る。
+    */
+
+    setTimeout(
+      function(){
+
+        /*
+          途中で次の問題に進んでいたら
+          読み上げない。
+        */
+
+        if(!isJudging){
+          return;
+        }
+
+        speakExample();
+
+      },
+      1200
+    );
 
   }
 
@@ -1911,6 +2008,12 @@ nextButton.addEventListener(
     stopListening();
 
     speechSynthesis.cancel();
+
+    /*
+      次の問題に進む。
+      showQuestion() で
+      英語と日本語は再び隠れる。
+    */
 
     current++;
 
