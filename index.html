@@ -1217,6 +1217,14 @@ function createRecognition(){
               !isJudging
             ){
 
+              /*
+               * 音声認識がいったん終了して
+               * 新しく認識を開始するときは、
+               * 前の回答を消す。
+               */
+              recognizedText.textContent = "";
+
+
               try{
 
                 rec.start();
@@ -1491,7 +1499,7 @@ function hasTimeExpression(text){
     /\bin\s+the\s+evening\b/,
 
     /*
-     * every ～ 
+     * every ～
      */
     /\bevery\s+day\b/,
     /\bevery\s+morning\b/,
@@ -1512,9 +1520,6 @@ function hasTimeExpression(text){
 
     /*
      * after / before
-     *
-     * 今の問題で使っている
-     * after school に対応
      */
     /\bafter\s+school\b/,
     /\bbefore\s+school\b/,
