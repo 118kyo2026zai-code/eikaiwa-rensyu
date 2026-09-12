@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -547,11 +548,7 @@ select{
     </div>
 
 
-    <!--
-      答え方の例
-      最初は非表示。
-      判定ボタンを押したときだけ表示する。
-    -->
+    <!-- 答え方の例 -->
 
     <div
       id="exampleBox"
@@ -842,11 +839,6 @@ permissionButton.addEventListener(
         });
 
 
-      /*
-       * 音声確認中なら
-       * 表示を上書きしない
-       */
-
       if(checkingVoice){
 
         return;
@@ -868,11 +860,6 @@ permissionButton.addEventListener(
 
 
     catch(error){
-
-      /*
-       * 音声確認中なら
-       * 「音声確認中」の表示を維持
-       */
 
       if(checkingVoice){
 
@@ -1006,17 +993,9 @@ function showQuestion(){
     questions.length;
 
 
-  /*
-   * 英語の質問は最初は見せない
-   */
-
   questionEnglish.textContent =
     "？？？";
 
-
-  /*
-   * 日本語の意味も最初は見せない
-   */
 
   questionJapanese.textContent =
     "";
@@ -1029,10 +1008,6 @@ function showQuestion(){
   result.textContent =
     "";
 
-
-  /*
-   * 答え方の例も必ず隠す
-   */
 
   exampleText.textContent =
     currentItem.example;
@@ -1118,11 +1093,6 @@ repeatButton.addEventListener(
     isJudging = false;
 
 
-    /*
-     * 「もう一回聞く」では
-     * 英語と日本語だけ表示する。
-     */
-
     questionEnglish.textContent =
       currentItem.question;
 
@@ -1137,10 +1107,6 @@ repeatButton.addEventListener(
     result.textContent =
       "";
 
-
-    /*
-     * 答え方の例は表示しない
-     */
 
     exampleBox.style.display =
       "none";
@@ -1412,20 +1378,47 @@ function hasTimeExpression(text){
 
   const timePatterns = [
 
-    /\bat\s+\d+/,
-    /\bat\s+\w+/,
+    /*
+     * 数字の時刻
+     * at 7
+     * at 7:30
+     */
+    /\bat\s+\d{1,2}(?::\d{2})?\b/,
 
+    /*
+     * 英語の時刻
+     * at seven
+     * at seven thirty
+     * at ten
+     */
+    /\bat\s+(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve)(\s+(five|ten|fifteen|twenty|twenty-five|thirty|thirty-five|forty|forty-five))?\b/,
+
+    /*
+     * noon / midnight / night
+     */
+    /\bat\s+noon\b/,
+    /\bat\s+midnight\b/,
+    /\bat\s+night\b/,
+
+    /*
+     * 朝・午後・夕方
+     */
     /\bin\s+the\s+morning\b/,
     /\bin\s+the\s+afternoon\b/,
     /\bin\s+the\s+evening\b/,
-    /\bat\s+night\b/,
 
+    /*
+     * every ～ 
+     */
     /\bevery\s+day\b/,
     /\bevery\s+morning\b/,
     /\bevery\s+afternoon\b/,
     /\bevery\s+evening\b/,
     /\bevery\s+night\b/,
 
+    /*
+     * 曜日
+     */
     /\bon\s+monday\b/,
     /\bon\s+tuesday\b/,
     /\bon\s+wednesday\b/,
@@ -1434,6 +1427,9 @@ function hasTimeExpression(text){
     /\bon\s+saturday\b/,
     /\bon\s+sunday\b/,
 
+    /*
+     * today / tomorrow など
+     */
     /\btoday\b/,
     /\btomorrow\b/,
     /\btonight\b/,
@@ -1640,8 +1636,8 @@ judgeButton.addEventListener(
 
 
       /*
-       * 判定直後にすぐ読み上げず、
-       * 1.2秒待つ
+       * まず自分の答えを読み上げる。
+       * そのあと例文を読み上げる。
        */
 
       setTimeout(
@@ -1654,7 +1650,34 @@ judgeButton.addEventListener(
           }
 
 
-          speakExample();
+          speakUserAnswer(
+            function(){
+
+              if(!isJudging){
+
+                return;
+
+              }
+
+
+              setTimeout(
+                function(){
+
+                  if(!isJudging){
+
+                    return;
+
+                  }
+
+
+                  speakExample();
+
+                },
+                500
+              );
+
+            }
+          );
 
         },
         1200
@@ -1671,6 +1694,78 @@ judgeButton.addEventListener(
 
   }
 );
+
+
+
+/* =========================================
+   自分の答え読み上げ
+========================================= */
+
+function speakUserAnswer(callback){
+
+  speechSynthesis.cancel();
+
+
+  const answer =
+    recognizedText.textContent.trim();
+
+
+  if(!answer){
+
+    if(callback){
+
+      callback();
+
+    }
+
+    return;
+
+  }
+
+
+  const utterance =
+    new SpeechSynthesisUtterance(
+      answer
+    );
+
+
+  utterance.lang =
+    "en-US";
+
+
+  utterance.rate =
+    getSpeechRate();
+
+
+  utterance.onend =
+    function(){
+
+      if(callback){
+
+        callback();
+
+      }
+
+    };
+
+
+  utterance.onerror =
+    function(){
+
+      if(callback){
+
+        callback();
+
+      }
+
+    };
+
+
+  speechSynthesis.speak(
+    utterance
+  );
+
+}
 
 
 
@@ -1789,3 +1884,4 @@ unitSelect.addEventListener(
 
 </body>
 </html>
+```
