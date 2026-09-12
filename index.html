@@ -1350,16 +1350,29 @@ function hasPlaceExpression(text){
   ];
 
 
+  /*
+    「home」を「homework」の一部として
+    誤認しないようにする。
+    
+    単語の前後が単語の境目になっている場合だけ
+    場所として認識する。
+  */
+
   for(
     let i = 0;
     i < knownPlaces.length;
     i++
   ){
 
+    const placePattern =
+      new RegExp(
+        "\\b" +
+        knownPlaces[i] +
+        "\\b"
+      );
+
     if(
-      t.includes(
-        knownPlaces[i]
-      )
+      placePattern.test(t)
     ){
 
       return true;
