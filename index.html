@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ALT英会話練習ドリル</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:
+    "Noto Sans JP",
+    "Yu Gothic",
+    sans-serif;
+
+  background:#f7f4fb;
+  color:#333;
+
+  min-height:100vh;
+}
+
+/* =========================
+   共通
+========================= */
+
+.container{
+  width:min(900px, 94%);
+  margin:0 auto;
+}
+
+/* =========================
+   準備画面
+========================= */
+
+#setupScreen{
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:30px 15px;
+}
+
+.setupBox{
+  width:min(650px, 100%);
+
+  background:white;
+
+  border-radius:24px;
+
+  padding:40px 30px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.10);
+
+  text-align:center;
+}
+
+.title{
+  font-size:clamp(28px, 5vw, 42px);
+  font-weight:bold;
+
+  color:#6d35b5;
+
+  margin-bottom:10px;
+}
+
+.subtitle{
+  font-size:18px;
+  color:#666;
+
+  margin-bottom:35px;
+}
+
+.setupSection{
+  margin:25px 0;
+}
+
+.setupLabel{
+  font-size:18px;
+  font-weight:bold;
+
+  margin-bottom:12px;
+}
+
+button{
+  border:none;
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-size:18px;
+  font-weight:bold;
+
+  padding:14px 24px;
+
+  transition:0.15s;
+}
+
+button:hover{
+  transform:translateY(-1px);
+}
+
+button:active{
+  transform:translateY(1px);
+}
+
+#voiceCheckButton{
+  background:#eee;
+  color:#333;
+}
+
+#micButton{
+  background:#f28c28;
+  color:white;
+}
+
+#startButton{
+  background:#6d35b5;
+  color:white;
+
+  width:100%;
+
+  font-size:22px;
+
+  padding:18px;
+}
+
+.status{
+  margin-top:12px;
+
+  font-size:16px;
+
+  min-height:24px;
+
+  color:#666;
+}
+
+/* =========================
+   練習画面
+========================= */
+
+#practiceScreen{
+  display:none;
+
+  min-height:100vh;
+
+  padding:20px 0 40px;
+}
+
+/* 上部 */
+
+.topBar{
+  width:min(900px, 94%);
+  margin:0 auto 15px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  gap:10px;
+}
+
+.appTitle{
+  color:#6d35b5;
+
+  font-size:22px;
+  font-weight:bold;
+}
+
+.progress{
+  font-size:16px;
+  color:#666;
+}
+
+/* 単元 */
+
+.unitArea{
+  width:min(900px, 94%);
+  margin:0 auto 15px;
+}
+
+.unitArea select{
+  width:auto;
+  min-width:180px;
+
+  padding:9px 12px;
+
+  border-radius:10px;
+  border:1px solid #ccc;
+
+  background:white;
+
+  font-size:16px;
+}
+
+/* メインカード */
+
+.questionCard{
+  width:min(900px, 94%);
+  margin:0 auto;
+
+  background:white;
+
+  border-radius:24px;
+
+  padding:28px 25px 30px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.08);
+}
+
+/* 質問 */
+
+.questionLabel{
+  color:#6d35b5;
+
+  font-size:16px;
+  font-weight:bold;
+
+  margin-bottom:10px;
+}
+
+.question{
+  font-size:clamp(30px, 6vw, 48px);
+
+  font-weight:bold;
+
+  line-height:1.35;
+
+  margin:0 0 12px;
+
+  word-break:break-word;
+}
+
+.questionJa{
+  font-size:20px;
+
+  color:#666;
+
+  margin-bottom:25px;
+}
+
+/* 音声速度 */
+
+.speedArea{
+  margin:10px 0 25px;
+
+  padding:12px;
+
+  background:#f7f4fb;
+
+  border-radius:12px;
+}
+
+.speedTitle{
+  font-size:15px;
+  font-weight:bold;
+
+  margin-bottom:7px;
+}
+
+.speedArea label{
+  margin-right:20px;
+
+  font-size:16px;
+
+  cursor:pointer;
+}
+
+/* 聞き取り */
+
+.listeningStatus{
+  min-height:30px;
+
+  font-size:18px;
+  font-weight:bold;
+
+  color:#6d35b5;
+
+  margin:10px 0;
+}
+
+/* 認識結果 */
+
+.resultBox{
+  margin-top:10px;
+
+  padding:15px;
+
+  border-radius:14px;
+
+  background:#f5f5f5;
+
+  min-height:70px;
+
+  text-align:left;
+}
+
+.resultLabel{
+  font-size:14px;
+  color:#777;
+
+  margin-bottom:5px;
+}
+
+#voiceText{
+  font-size:22px;
+  font-weight:bold;
+
+  word-break:break-word;
+}
+
+/* 判定結果 */
+
+#judgeResult{
+  margin-top:18px;
+
+  min-height:45px;
+
+  font-size:27px;
+
+  font-weight:bold;
+
+  text-align:center;
+}
+
+.correct{
+  color:#16833b;
+}
+
+.wrong{
+  color:#d63c3c;
+}
+
+/* 正解例 */
+
+.exampleBox{
+  margin-top:15px;
+
+  padding:15px 18px;
+
+  border-left:6px solid #f28c28;
+
+  background:#fff8f1;
+
+  border-radius:10px;
+
+  text-align:left;
+}
+
+.exampleTitle{
+  font-size:14px;
+  color:#777;
+
+  margin-bottom:5px;
+}
+
+#exampleAnswer{
+  font-size:22px;
+  font-weight:bold;
+}
+
+/* ボタン */
+
+.buttonArea{
+  display:flex;
+
+  flex-wrap:wrap;
+
+  justify-content:center;
+
+  gap:12px;
+
+  margin-top:25px;
+}
+
+.repeatButton{
+  background:#eee;
+  color:#333;
+}
+
+.judgeButton{
+  background:#f28c28;
+  color:white;
+}
+
+.nextButton{
+  background:#6d35b5;
+  color:white;
+}
+
+/* =========================
+   終了画面
+========================= */
+
+#finishScreen{
+  display:none;
+
+  min-height:100vh;
+
+  justify-content:center;
+  align-items:center;
+
+  padding:30px;
+}
+
+.finishBox{
+  background:white;
+
+  width:min(650px, 100%);
+
+  padding:40px 30px;
+
+  border-radius:24px;
+
+  text-align:center;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.10);
+}
+
+.finishTitle{
+  font-size:35px;
+
+  color:#6d35b5;
+
+  font-weight:bold;
+
+  margin-bottom:20px;
+}
+
+.finishMessage{
+  font-size:20px;
+
+  line-height:1.7;
+
+  margin-bottom:25px;
+}
+
+.restartButton{
+  background:#6d35b5;
+  color:white;
+
+  width:100%;
+}
+
+/* =========================
+   スマホ
+========================= */
+
+@media(max-width:600px){
+
+  .setupBox{
+    padding:30px 18px;
+  }
+
+  .questionCard{
+    padding:22px 17px 25px;
+  }
+
+  .questionJa{
+    font-size:18px;
+  }
+
+  .buttonArea{
+    flex-direction:column;
+  }
+
+  .buttonArea button{
+    width:100%;
+  }
+
+  .topBar{
+    align-items:flex-start;
+  }
+
+  .appTitle{
+    font-size:18px;
+  }
+
+  .progress{
+    font-size:14px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     準備画面
+========================= -->
+
+<section id="setupScreen">
+
+  <div class="setupBox">
+
+    <div class="title">
+      ALT英会話練習ドリル
+    </div>
+
+    <div class="subtitle">
+      英語で質問に答える練習をしよう！
+    </div>
+
+    <div class="setupSection">
+
+      <div class="setupLabel">
+        ① 音声を確認
+      </div>
+
+      <button id="voiceCheckButton">
+        🔊 音声を確認
+      </button>
+
+      <div id="voiceStatus" class="status"></div>
+
+    </div>
+
+    <div class="setupSection">
+
+      <div class="setupLabel">
+        ② マイクを許可
+      </div>
+
+      <button id="micButton">
+        🎤 マイクを許可
+      </button>
+
+      <div id="micStatus" class="status"></div>
+
+    </div>
+
+    <div class="setupSection">
+
+      <button id="startButton" disabled>
+        練習を始める
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     練習画面
+========================= -->
+
+<section id="practiceScreen">
+
+  <div class="topBar">
+
+    <div class="appTitle">
+      ALT英会話練習
+    </div>
+
+    <div id="progress" class="progress">
+      1 / 15
+    </div>
+
+  </div>
+
+
+  <div class="unitArea">
+
+    <select id="unitSelect">
+
+      <option value="all">
+        全部
+      </option>
+
+      <option value="What">
+        What
+      </option>
+
+      <option value="Where">
+        Where
+      </option>
+
+      <option value="When">
+        When
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div class="questionCard">
+
+    <div class="questionLabel">
+      英語で答えてみよう！
+    </div>
+
+    <div id="question" class="question">
+    </div>
+
+    <div id="questionJa" class="questionJa">
+    </div>
+
+
+    <!-- 音声速度 -->
+
+    <div class="speedArea">
+
+      <div class="speedTitle">
+        🔊 質問の速さ
+      </div>
+
+      <label>
+        <input
+          type="radio"
+          name="speed"
+          value="1"
+          checked
+        >
+        ナチュラル
+      </label>
+
+      <label>
+        <input
+          type="radio"
+          name="speed"
+          value="0.75"
+        >
+        ゆっくり
+      </label>
+
+    </div>
+
+
+    <div id="listeningStatus" class="listeningStatus">
+    </div>
+
+
+    <!-- 認識結果 -->
+
+    <div class="resultBox">
+
+      <div class="resultLabel">
+        あなたの答え
+      </div>
+
+      <div id="voiceText">
+        ここに英語が表示されます
+      </div>
+
+    </div>
+
+
+    <!-- 判定結果 -->
+
+    <div id="judgeResult">
+    </div>
+
+
+    <!-- 正解例 -->
+
+    <div class="exampleBox">
+
+      <div class="exampleTitle">
+        答え方の例
+      </div>
+
+      <div id="exampleAnswer">
+      </div>
+
+    </div>
+
+
+    <!-- ボタン -->
+
+    <div class="buttonArea">
+
+      <button
+        id="repeatButton"
+        class="repeatButton"
+      >
+        🔊 もう一回聞く
+      </button>
+
+      <button
+        id="judgeButton"
+        class="judgeButton"
+      >
+        判定
+      </button>
+
+      <button
+        id="nextButton"
+        class="nextButton"
+      >
+        次の質問
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     終了画面
+========================= -->
+
+<section id="finishScreen">
+
+  <div class="finishBox">
+
+    <div class="finishTitle">
+      🎉 練習終了！
+    </div>
+
+    <div class="finishMessage">
+      よくがんばりました！<br>
+      ALTとの英会話でも使ってみよう！
+    </div>
+
+    <button
+      id="restartButton"
+      class="restartButton"
+    >
+      もう一度練習する
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     データ
+========================= -->
+
+<script src="conversationData.js"></script>
+
+
+<script>
+
+/* =========================================
+   音声関係
+========================================= */
+
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+let speech = null;
+
+let synth = window.speechSynthesis;
+
+let voiceReady = false;
+let microphoneReady = false;
+
+let shouldListen = false;
+let isJudging = false;
+
+let currentData = [];
+let current = 0;
+
+
+/* =========================================
+   DOM
+========================================= */
+
+const setupScreen =
+  document.getElementById("setupScreen");
+
+const practiceScreen =
+  document.getElementById("practiceScreen");
+
+const finishScreen =
+  document.getElementById("finishScreen");
+
+const voiceCheckButton =
+  document.getElementById("voiceCheckButton");
+
+const micButton =
+  document.getElementById("micButton");
+
+const startButton =
+  document.getElementById("startButton");
+
+const voiceStatus =
+  document.getElementById("voiceStatus");
+
+const micStatus =
+  document.getElementById("micStatus");
+
+const question =
+  document.getElementById("question");
+
+const questionJa =
+  document.getElementById("questionJa");
+
+const voiceText =
+  document.getElementById("voiceText");
+
+const judgeResult =
+  document.getElementById("judgeResult");
+
+const exampleAnswer =
+  document.getElementById("exampleAnswer");
+
+const listeningStatus =
+  document.getElementById("listeningStatus");
+
+const progress =
+  document.getElementById("progress");
+
+const unitSelect =
+  document.getElementById("unitSelect");
+
+const repeatButton =
+  document.getElementById("repeatButton");
+
+const judgeButton =
+  document.getElementById("judgeButton");
+
+const nextButton =
+  document.getElementById("nextButton");
+
+const restartButton =
+  document.getElementById("restartButton");
+
+
+/* =========================================
+   音声認識の準備
+========================================= */
+
+if(SpeechRecognition){
+
+  speech = new SpeechRecognition();
+
+  speech.lang = "en-US";
+
+  speech.continuous = true;
+
+  speech.interimResults = false;
+
+  speech.onresult = function(event){
+
+    let result = "";
+
+    for(
+      let i = event.resultIndex;
+      i < event.results.length;
+      i++
+    ){
+
+      if(event.results[i].isFinal){
+
+        result += event.results[i][0].transcript + " ";
+
+      }
+
+    }
+
+    result = result.trim();
+
+    if(result){
+
+      voiceText.textContent = result;
+
+      listeningStatus.textContent =
+        "🎤 聞き取りました。";
+
+    }
+
+  };
+
+
+  speech.onerror = function(event){
+
+    console.log("Speech recognition error:", event.error);
+
+    if(event.error === "not-allowed"){
+
+      listeningStatus.textContent =
+        "マイクが許可されていません。";
+
+    }
+
+  };
+
+
+  speech.onend = function(){
+
+    if(
+      shouldListen &&
+      !isJudging
+    ){
+
+      setTimeout(function(){
+
+        try{
+
+          speech.start();
+
+        }catch(e){
+
+        }
+
+      },500);
+
+    }
+
+  };
+
+}
+
+
+/* =========================================
+   音声速度
+========================================= */
+
+function getSpeechRate(){
+
+  const selected =
+    document.querySelector(
+      'input[name="speed"]:checked'
+    );
+
+  return selected
+    ? Number(selected.value)
+    : 1;
+
+}
+
+
+/* =========================================
+   質問を読み上げる
+========================================= */
+
+function speakQuestion(callback){
+
+  if(!synth){
+
+    if(callback){
+      callback();
+    }
+
+    return;
+
+  }
+
+  /* 認識を一度止める */
+
+  shouldListen = false;
+
+  if(speech){
+
+    try{
+      speech.stop();
+    }catch(e){}
+
+  }
+
+  synth.cancel();
+
+  const utterance =
+    new SpeechSynthesisUtterance(
+      currentData[current].question
+    );
+
+  utterance.lang = "en-US";
+
+  utterance.rate = getSpeechRate();
+
+  utterance.pitch = 1;
+
+  utterance.onend = function(){
+
+    if(callback){
+      callback();
+    }
+
+  };
+
+  synth.speak(utterance);
+
+}
+
+
+/* =========================================
+   マイク開始
+========================================= */
+
+function startListening(){
+
+  if(!speech){
+    return;
+  }
+
+  if(isJudging){
+    return;
+  }
+
+  shouldListen = true;
+
+  listeningStatus.textContent =
+    "🎤 あなたの答えを聞いています…";
+
+  try{
+
+    speech.start();
+
+  }catch(e){
+
+  }
+
+}
+
+
+/* =========================================
+   マイク停止
+========================================= */
+
+function stopListening(){
+
+  shouldListen = false;
+
+  if(speech){
+
+    try{
+      speech.stop();
+    }catch(e){}
+
+  }
+
+}
+
+
+/* =========================================
+   正規化
+========================================= */
+
+function normalize(text){
+
+  return text
+    .toLowerCase()
+    .replace(/[.,!?]/g,"")
+    .replace(/[’']/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+
+}
+
+
+/* =========================================
+   答えの判定
+========================================= */
+
+function judgeAnswer(){
+
+  if(isJudging){
+    return;
+  }
+
+  isJudging = true;
+
+  stopListening();
+
+  const user =
+    normalize(voiceText.textContent);
+
+  const item =
+    currentData[current];
+
+  if(
+    !user ||
+    user === "ここに英語が表示されます"
+  ){
+
+    judgeResult.textContent =
+      "❌ もう一度、英語で答えてみよう！";
+
+    judgeResult.className = "wrong";
+
+    isJudging = false;
+
+    return;
+
+  }
+
+
+  let correct = false;
+
+
+  /*
+    pattern に書かれている
+    「答え始めの形」を確認します。
+
+    さらに pattern の後に
+    何か言葉が続いていることを確認します。
+  */
+
+  const patterns =
+    item.patterns || [item.pattern];
+
+  for(const pattern of patterns){
+
+    const p = normalize(pattern);
+
+    if(
+      user.startsWith(p + " ") &&
+      user.length > p.length
+    ){
+
+      correct = true;
+      break;
+
+    }
+
+  }
+
+
+  if(correct){
+
+    judgeResult.textContent =
+      "◎ いいね！";
+
+    judgeResult.className =
+      "correct";
+
+  }else{
+
+    judgeResult.textContent =
+      "❌ 答え方をもう一度練習しよう！";
+
+    judgeResult.className =
+      "wrong";
+
+  }
+
+
+  exampleAnswer.textContent =
+    item.example;
+
+  isJudging = false;
+
+}
+
+
+/* =========================================
+   質問を表示
+========================================= */
+
+function showQuestion(){
+
+  if(current >= currentData.length){
+
+    finish();
+
+    return;
+
+  }
+
+  const item =
+    currentData[current];
+
+  question.textContent =
+    item.question;
+
+  questionJa.textContent =
+    item.questionJa;
+
+  exampleAnswer.textContent =
+    item.example;
+
+  voiceText.textContent =
+    "ここに英語が表示されます";
+
+  judgeResult.textContent =
+    "";
+
+  judgeResult.className =
+    "";
+
+  progress.textContent =
+    `${current + 1} / ${currentData.length}`;
+
+  isJudging = false;
+
+  /*
+    質問を読み終わってから
+    マイクを開始する
+  */
+
+  setTimeout(function(){
+
+    speakQuestion(function(){
+
+      if(!isJudging){
+
+        startListening();
+
+      }
+
+    });
+
+  },300);
+
+}
+
+
+/* =========================================
+   次の質問
+========================================= */
+
+function nextQuestion(){
+
+  stopListening();
+
+  synth.cancel();
+
+  current++;
+
+  showQuestion();
+
+}
+
+
+/* =========================================
+   もう一回聞く
+========================================= */
+
+function repeatQuestion(){
+
+  stopListening();
+
+  synth.cancel();
+
+  voiceText.textContent =
+    "ここに英語が表示されます";
+
+  judgeResult.textContent =
+    "";
+
+  setTimeout(function(){
+
+    speakQuestion(function(){
+
+      if(!isJudging){
+
+        startListening();
+
+      }
+
+    });
+
+  },200);
+
+}
+
+
+/* =========================================
+   単元変更
+========================================= */
+
+unitSelect.addEventListener(
+  "change",
+  function(){
+
+    const unit =
+      unitSelect.value;
+
+    if(unit === "all"){
+
+      currentData =
+        conversationData.slice();
+
+    }else{
+
+      currentData =
+        conversationData.filter(
+          item => item.unit === unit
+        );
+
+    }
+
+    current = 0;
+
+    showQuestion();
+
+  }
+);
+
+
+/* =========================================
+   音声確認
+========================================= */
+
+voiceCheckButton.addEventListener(
+  "click",
+  function(){
+
+    if(!synth){
+
+      voiceStatus.textContent =
+        "このブラウザでは音声を利用できません。";
+
+      return;
+
+    }
+
+    synth.cancel();
+
+    const utterance =
+      new SpeechSynthesisUtterance(
+        "Hello."
+      );
+
+    utterance.lang =
+      "en-US";
+
+    utterance.rate =
+      1.0;
+
+    synth.speak(utterance);
+
+    voiceReady = true;
+
+    voiceStatus.textContent =
+      "◎ 音声OK！";
+
+    checkReady();
+
+  }
+);
+
+
+/* =========================================
+   マイク許可
+========================================= */
+
+micButton.addEventListener(
+  "click",
+  async function(){
+
+    if(!navigator.mediaDevices){
+
+      micStatus.textContent =
+        "このブラウザではマイクを利用できません。";
+
+      return;
+
+    }
+
+    try{
+
+      const stream =
+        await navigator.mediaDevices.getUserMedia({
+          audio:true
+        });
+
+      stream.getTracks().forEach(
+        track => track.stop()
+      );
+
+      microphoneReady = true;
+
+      micStatus.textContent =
+        "◎ マイクOK！";
+
+      micButton.textContent =
+        "🎤 マイクOK";
+
+      checkReady();
+
+    }catch(error){
+
+      console.log(error);
+
+      micStatus.textContent =
+        "❌ マイクを許可してください。";
+
+    }
+
+  }
+);
+
+
+/* =========================================
+   開始ボタン確認
+========================================= */
+
+function checkReady(){
+
+  if(
+    voiceReady &&
+    microphoneReady
+  ){
+
+    startButton.disabled = false;
+
+  }
+
+}
+
+
+/* =========================================
+   練習開始
+========================================= */
+
+startButton.addEventListener(
+  "click",
+  function(){
+
+    setupScreen.style.display =
+      "none";
+
+    practiceScreen.style.display =
+      "block";
+
+    currentData =
+      conversationData.slice();
+
+    current = 0;
+
+    showQuestion();
+
+  }
+);
+
+
+/* =========================================
+   ボタン
+========================================= */
+
+repeatButton.addEventListener(
+  "click",
+  repeatQuestion
+);
+
+judgeButton.addEventListener(
+  "click",
+  judgeAnswer
+);
+
+nextButton.addEventListener(
+  "click",
+  nextQuestion
+);
+
+
+/* =========================================
+   終了
+========================================= */
+
+function finish(){
+
+  stopListening();
+
+  synth.cancel();
+
+  practiceScreen.style.display =
+    "none";
+
+  finishScreen.style.display =
+    "flex";
+
+}
+
+
+/* =========================================
+   もう一度
+========================================= */
+
+restartButton.addEventListener(
+  "click",
+  function(){
+
+    finishScreen.style.display =
+      "none";
+
+    practiceScreen.style.display =
+      "block";
+
+    currentData =
+      conversationData.slice();
+
+    current = 0;
+
+    showQuestion();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
