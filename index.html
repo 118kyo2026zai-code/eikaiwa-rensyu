@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ALT英会話練習ドリル</title>
+<title>ALTと話そう！英会話トレーニング</title>
 
 <style>
 
@@ -110,6 +110,12 @@ button:hover{
 
 button:active{
   transform:translateY(1px);
+}
+
+button:disabled{
+  opacity:0.45;
+  cursor:not-allowed;
+  transform:none;
 }
 
 #voiceCheckButton{
@@ -340,9 +346,14 @@ button:active{
   color:#d63c3c;
 }
 
-/* 正解例 */
+/* =========================
+   答え方の例
+   最初は非表示
+========================= */
 
 .exampleBox{
+  display:none;
+
   margin-top:15px;
 
   padding:15px 18px;
@@ -506,11 +517,11 @@ button:active{
   <div class="setupBox">
 
     <div class="title">
-      ALT英会話練習ドリル
+      ALTと話そう！
     </div>
 
     <div class="subtitle">
-      英語で質問に答える練習をしよう！
+      英会話トレーニング
     </div>
 
     <div class="setupSection">
@@ -520,7 +531,7 @@ button:active{
       </div>
 
       <button id="voiceCheckButton">
-        🔊 音声を確認
+         音声を確認
       </button>
 
       <div id="voiceStatus" class="status"></div>
@@ -534,7 +545,7 @@ button:active{
       </div>
 
       <button id="micButton">
-        🎤 マイクを許可
+        マイクを許可
       </button>
 
       <div id="micStatus" class="status"></div>
@@ -563,7 +574,7 @@ button:active{
   <div class="topBar">
 
     <div class="appTitle">
-      ALT英会話練習
+      ALTと話そう！
     </div>
 
     <div id="progress" class="progress">
@@ -666,9 +677,11 @@ button:active{
     </div>
 
 
-    <!-- 正解例 -->
+    <!-- 答え方の例
+         最初はdisplay:none
+         「もう一回聞く」で表示 -->
 
-    <div class="exampleBox">
+    <div id="exampleBox" class="exampleBox">
 
       <div class="exampleTitle">
         答え方の例
@@ -812,6 +825,9 @@ const voiceText =
 const judgeResult =
   document.getElementById("judgeResult");
 
+const exampleBox =
+  document.getElementById("exampleBox");
+
 const exampleAnswer =
   document.getElementById("exampleAnswer");
 
@@ -851,6 +867,7 @@ if(SpeechRecognition){
 
   speech.interimResults = false;
 
+
   speech.onresult = function(event){
 
     let result = "";
@@ -863,7 +880,8 @@ if(SpeechRecognition){
 
       if(event.results[i].isFinal){
 
-        result += event.results[i][0].transcript + " ";
+        result +=
+          event.results[i][0].transcript + " ";
 
       }
 
@@ -876,7 +894,7 @@ if(SpeechRecognition){
       voiceText.textContent = result;
 
       listeningStatus.textContent =
-        "🎤 聞き取りました。";
+        "聞き取りました。";
 
     }
 
@@ -885,7 +903,10 @@ if(SpeechRecognition){
 
   speech.onerror = function(event){
 
-    console.log("Speech recognition error:", event.error);
+    console.log(
+      "Speech recognition error:",
+      event.error
+    );
 
     if(event.error === "not-allowed"){
 
@@ -957,7 +978,8 @@ function speakQuestion(callback){
 
   }
 
-  /* 認識を一度止める */
+
+  /* 認識を止める */
 
   shouldListen = false;
 
@@ -969,18 +991,24 @@ function speakQuestion(callback){
 
   }
 
+
   synth.cancel();
+
 
   const utterance =
     new SpeechSynthesisUtterance(
       currentData[current].question
     );
 
-  utterance.lang = "en-US";
+  utterance.lang =
+    "en-US";
 
-  utterance.rate = getSpeechRate();
+  utterance.rate =
+    getSpeechRate();
 
-  utterance.pitch = 1;
+  utterance.pitch =
+    1;
+
 
   utterance.onend = function(){
 
@@ -989,6 +1017,7 @@ function speakQuestion(callback){
     }
 
   };
+
 
   synth.speak(utterance);
 
@@ -1009,10 +1038,12 @@ function startListening(){
     return;
   }
 
+
   shouldListen = true;
 
   listeningStatus.textContent =
-    "🎤 あなたの答えを聞いています…";
+    "あなたの答えを聞いています…";
+
 
   try{
 
@@ -1070,25 +1101,31 @@ function judgeAnswer(){
     return;
   }
 
+
   isJudging = true;
 
   stopListening();
 
+
   const user =
     normalize(voiceText.textContent);
+
 
   const item =
     currentData[current];
 
+
   if(
     !user ||
-    user === "ここに英語が表示されます"
+    user ===
+      "ここに英語が表示されます"
   ){
 
     judgeResult.textContent =
       "❌ もう一度、英語で答えてみよう！";
 
-    judgeResult.className = "wrong";
+    judgeResult.className =
+      "wrong";
 
     isJudging = false;
 
@@ -1104,16 +1141,20 @@ function judgeAnswer(){
     pattern に書かれている
     「答え始めの形」を確認します。
 
-    さらに pattern の後に
-    何か言葉が続いていることを確認します。
+    pattern の後に
+    何か言葉が続いていれば正解です。
   */
 
   const patterns =
-    item.patterns || [item.pattern];
+    item.patterns ||
+    [item.pattern];
+
 
   for(const pattern of patterns){
 
-    const p = normalize(pattern);
+    const p =
+      normalize(pattern);
+
 
     if(
       user.startsWith(p + " ") &&
@@ -1121,6 +1162,7 @@ function judgeAnswer(){
     ){
 
       correct = true;
+
       break;
 
     }
@@ -1147,8 +1189,17 @@ function judgeAnswer(){
   }
 
 
+  /*
+    判定しただけでは
+    スクリプトは表示しません。
+  */
+
+  exampleBox.style.display =
+    "none";
+
   exampleAnswer.textContent =
-    item.example;
+    "";
+
 
   isJudging = false;
 
@@ -1169,8 +1220,10 @@ function showQuestion(){
 
   }
 
+
   const item =
     currentData[current];
+
 
   question.textContent =
     item.question;
@@ -1178,11 +1231,22 @@ function showQuestion(){
   questionJa.textContent =
     item.questionJa;
 
+
+  /*
+    新しい問題では
+    答え方の例を完全に隠す
+  */
+
   exampleAnswer.textContent =
-    item.example;
+    "";
+
+  exampleBox.style.display =
+    "none";
+
 
   voiceText.textContent =
     "ここに英語が表示されます";
+
 
   judgeResult.textContent =
     "";
@@ -1190,14 +1254,17 @@ function showQuestion(){
   judgeResult.className =
     "";
 
+
   progress.textContent =
     `${current + 1} / ${currentData.length}`;
 
+
   isJudging = false;
+
 
   /*
     質問を読み終わってから
-    マイクを開始する
+    マイクを開始
   */
 
   setTimeout(function(){
@@ -1244,11 +1311,29 @@ function repeatQuestion(){
 
   synth.cancel();
 
+
+  /*
+    「もう一回聞く」を押したときだけ
+    答え方の例を表示
+  */
+
+  exampleAnswer.textContent =
+    currentData[current].example;
+
+  exampleBox.style.display =
+    "block";
+
+
   voiceText.textContent =
     "ここに英語が表示されます";
 
+
   judgeResult.textContent =
     "";
+
+  judgeResult.className =
+    "";
+
 
   setTimeout(function(){
 
@@ -1278,6 +1363,7 @@ unitSelect.addEventListener(
     const unit =
       unitSelect.value;
 
+
     if(unit === "all"){
 
       currentData =
@@ -1287,10 +1373,12 @@ unitSelect.addEventListener(
 
       currentData =
         conversationData.filter(
-          item => item.unit === unit
+          item =>
+            item.unit === unit
         );
 
     }
+
 
     current = 0;
 
@@ -1317,12 +1405,15 @@ voiceCheckButton.addEventListener(
 
     }
 
+
     synth.cancel();
+
 
     const utterance =
       new SpeechSynthesisUtterance(
         "Hello."
       );
+
 
     utterance.lang =
       "en-US";
@@ -1330,12 +1421,16 @@ voiceCheckButton.addEventListener(
     utterance.rate =
       1.0;
 
+
     synth.speak(utterance);
+
 
     voiceReady = true;
 
+
     voiceStatus.textContent =
       "◎ 音声OK！";
+
 
     checkReady();
 
@@ -1360,6 +1455,7 @@ micButton.addEventListener(
 
     }
 
+
     try{
 
       const stream =
@@ -1367,23 +1463,32 @@ micButton.addEventListener(
           audio:true
         });
 
-      stream.getTracks().forEach(
-        track => track.stop()
-      );
+
+      stream
+        .getTracks()
+        .forEach(
+          track => track.stop()
+        );
+
 
       microphoneReady = true;
+
 
       micStatus.textContent =
         "◎ マイクOK！";
 
+
       micButton.textContent =
-        "🎤 マイクOK";
+        "マイクOK";
+
 
       checkReady();
+
 
     }catch(error){
 
       console.log(error);
+
 
       micStatus.textContent =
         "❌ マイクを許可してください。";
@@ -1405,7 +1510,8 @@ function checkReady(){
     microphoneReady
   ){
 
-    startButton.disabled = false;
+    startButton.disabled =
+      false;
 
   }
 
@@ -1423,13 +1529,17 @@ startButton.addEventListener(
     setupScreen.style.display =
       "none";
 
+
     practiceScreen.style.display =
       "block";
+
 
     currentData =
       conversationData.slice();
 
+
     current = 0;
+
 
     showQuestion();
 
@@ -1467,8 +1577,10 @@ function finish(){
 
   synth.cancel();
 
+
   practiceScreen.style.display =
     "none";
+
 
   finishScreen.style.display =
     "flex";
@@ -1487,13 +1599,17 @@ restartButton.addEventListener(
     finishScreen.style.display =
       "none";
 
+
     practiceScreen.style.display =
       "block";
+
 
     currentData =
       conversationData.slice();
 
+
     current = 0;
+
 
     showQuestion();
 
