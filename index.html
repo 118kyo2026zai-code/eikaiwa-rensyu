@@ -14,6 +14,7 @@
 
 body{
   margin:0;
+
   font-family:
     -apple-system,
     BlinkMacSystemFont,
@@ -22,15 +23,13 @@ body{
     "Hiragino Kaku Gothic ProN",
     sans-serif;
 
-  background:#f7f7f5;
+  /* 真っ白ではなく、目にやさしい背景 */
+  background:#f3f0e8;
+
   color:#333;
 
   min-height:100vh;
 }
-
-/* =========================
-   共通
-========================= */
 
 button,
 select{
@@ -45,9 +44,10 @@ button{
   display:none !important;
 }
 
-/* =========================
+
+/* =====================================
    はじめの画面
-========================= */
+===================================== */
 
 #startScreen{
   min-height:100vh;
@@ -62,9 +62,9 @@ button{
 .startBox{
   width:min(620px, 100%);
 
-  background:white;
+  background:#fffdf8;
 
-  border:1px solid #ddd;
+  border:1px solid #d8d3c8;
   border-radius:12px;
 
   padding:42px 30px 36px;
@@ -74,52 +74,69 @@ button{
 
 .startTitle{
   font-size:clamp(28px, 6vw, 42px);
+
   font-weight:700;
+
   margin:0 0 8px;
+
   letter-spacing:0.04em;
 }
 
 .startSubTitle{
   font-size:18px;
+
   color:#666;
+
   margin-bottom:36px;
 }
 
 .startDescription{
   font-size:16px;
+
   line-height:1.9;
+
   margin-bottom:30px;
+
   color:#555;
 }
 
 .startButtons{
   display:flex;
+
   flex-direction:column;
+
   gap:12px;
+
   max-width:360px;
+
   margin:0 auto;
 }
 
 .startButtons button{
   width:100%;
+
   padding:15px 20px;
 
   border:1px solid #aaa;
+
   border-radius:7px;
 
-  background:white;
+  background:#fffdf8;
+
   color:#333;
 
   font-size:17px;
 }
 
 .startButtons button:hover{
-  background:#f3f3f3;
+  background:#f1eee7;
 }
 
 #startButton{
   background:#444;
+
   color:white;
+
   border-color:#444;
 }
 
@@ -129,30 +146,38 @@ button{
 
 .soundMessage{
   min-height:28px;
+
   margin-top:18px;
+
   font-size:14px;
+
   color:#666;
 }
 
-/* =========================
+
+/* =====================================
    練習画面
-========================= */
+===================================== */
 
 #practiceScreen{
   display:none;
 
   min-height:100vh;
+
   padding-bottom:40px;
 }
 
 .header{
-  background:white;
-  border-bottom:1px solid #ddd;
+  background:#fffdf8;
+
+  border-bottom:1px solid #d8d3c8;
 
   padding:14px 20px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:space-between;
 
   gap:15px;
@@ -160,28 +185,36 @@ button{
 
 .headerTitle{
   font-size:20px;
+
   font-weight:700;
+
   white-space:nowrap;
 }
 
 .progress{
   font-size:14px;
+
   color:#666;
+
   white-space:nowrap;
 }
 
 .main{
   width:min(760px, calc(100% - 30px));
+
   margin:25px auto 0;
 }
 
-/* =========================
+
+/* =====================================
    単元選択
-========================= */
+===================================== */
 
 .unitArea{
   display:flex;
+
   align-items:center;
+
   gap:10px;
 
   margin-bottom:18px;
@@ -189,28 +222,34 @@ button{
 
 .unitArea label{
   font-size:14px;
+
   color:#555;
 }
 
 #unitSelect{
   padding:8px 32px 8px 10px;
 
-  border:1px solid #bbb;
+  border:1px solid #bdb8ae;
+
   border-radius:6px;
 
-  background:white;
+  background:#fffdf8;
 
   font-size:15px;
+
+  color:#333;
 }
 
-/* =========================
+
+/* =====================================
    問題カード
-========================= */
+===================================== */
 
 .questionCard{
-  background:white;
+  background:#fff;
 
-  border:1px solid #d8d8d8;
+  border:1px solid #d6d1c7;
+
   border-radius:12px;
 
   padding:30px 25px 25px;
@@ -220,6 +259,7 @@ button{
 
 .questionLabel{
   font-size:15px;
+
   color:#777;
 
   margin-bottom:18px;
@@ -229,10 +269,13 @@ button{
   min-height:58px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   font-size:clamp(28px, 6vw, 42px);
+
   font-weight:700;
 
   line-height:1.4;
@@ -244,6 +287,7 @@ button{
   min-height:32px;
 
   font-size:19px;
+
   color:#555;
 
   line-height:1.6;
@@ -251,14 +295,16 @@ button{
   margin-bottom:24px;
 }
 
-/* =========================
+
+/* =====================================
    速度
-========================= */
+===================================== */
 
 .speedArea{
   margin:0 auto 20px;
 
   font-size:14px;
+
   color:#666;
 }
 
@@ -270,9 +316,10 @@ button{
   margin-right:4px;
 }
 
-/* =========================
+
+/* =====================================
    状態表示
-========================= */
+===================================== */
 
 .listenStatus{
   min-height:24px;
@@ -280,12 +327,14 @@ button{
   margin-bottom:15px;
 
   font-size:14px;
+
   color:#777;
 }
 
-/* =========================
+
+/* =====================================
    回答
-========================= */
+===================================== */
 
 .answerBox{
   text-align:left;
@@ -297,6 +346,7 @@ button{
 
 .answerTitle{
   font-size:15px;
+
   font-weight:700;
 
   margin-bottom:10px;
@@ -308,30 +358,36 @@ button{
   padding:14px 16px;
 
   border:1px solid #ddd;
+
   border-radius:7px;
 
-  background:#fafafa;
+  background:#faf9f5;
 
   font-size:19px;
+
   line-height:1.6;
 
   word-break:break-word;
 }
 
-/* =========================
+
+/* =====================================
    判定結果
-========================= */
+===================================== */
 
 #judgeResult{
   min-height:44px;
 
   display:flex;
+
   align-items:center;
+
   justify-content:center;
 
   margin:18px 0 4px;
 
   font-size:22px;
+
   font-weight:700;
 }
 
@@ -343,9 +399,10 @@ button{
   color:#b33a3a;
 }
 
-/* =========================
+
+/* =====================================
    答え方の例
-========================= */
+===================================== */
 
 .exampleBox{
   display:block;
@@ -354,9 +411,10 @@ button{
 
   padding:16px;
 
-  background:#f8f8f8;
+  background:#f7f5ef;
 
-  border:1px solid #e1e1e1;
+  border:1px solid #ded9cf;
+
   border-radius:7px;
 
   text-align:left;
@@ -364,6 +422,7 @@ button{
 
 .exampleTitle{
   font-size:14px;
+
   color:#666;
 
   margin-bottom:7px;
@@ -371,12 +430,14 @@ button{
 
 #exampleAnswer{
   font-size:18px;
+
   line-height:1.6;
 }
 
-/* =========================
+
+/* =====================================
    ボタン
-========================= */
+===================================== */
 
 .buttons{
   display:grid;
@@ -394,9 +455,10 @@ button{
   padding:10px 8px;
 
   border:1px solid #aaa;
+
   border-radius:7px;
 
-  background:white;
+  background:#fffdf8;
 
   color:#333;
 
@@ -404,12 +466,14 @@ button{
 }
 
 .buttons button:hover{
-  background:#f3f3f3;
+  background:#f1eee7;
 }
 
 #judgeButton{
   background:#444;
+
   color:white;
+
   border-color:#444;
 }
 
@@ -417,9 +481,10 @@ button{
   background:#333;
 }
 
-/* =========================
+
+/* =====================================
    スマートフォン
-========================= */
+===================================== */
 
 @media(max-width:600px){
 
@@ -445,6 +510,7 @@ button{
 
   .main{
     width:calc(100% - 20px);
+
     margin-top:15px;
   }
 
@@ -478,9 +544,10 @@ button{
 
 }
 
-/* =========================
-   とても小さい画面
-========================= */
+
+/* =====================================
+   小さい画面
+===================================== */
 
 @media(max-width:380px){
 
@@ -500,6 +567,7 @@ button{
 
 <body>
 
+
 <!-- =====================================
      はじめの画面
 ===================================== -->
@@ -508,7 +576,9 @@ button{
 
   <div class="startBox">
 
-    <h1 class="startTitle">ALTと話そう！</h1>
+    <h1 class="startTitle">
+      ALTと話そう！
+    </h1>
 
     <div class="startSubTitle">
       英会話トレーニング
@@ -535,11 +605,15 @@ button{
 
     </div>
 
-    <div id="soundMessage" class="soundMessage"></div>
+    <div
+      id="soundMessage"
+      class="soundMessage">
+    </div>
 
   </div>
 
 </div>
+
 
 
 <!-- =====================================
@@ -548,13 +622,16 @@ button{
 
 <div id="practiceScreen">
 
+
   <header class="header">
 
     <div class="headerTitle">
       ALTと話そう！
     </div>
 
-    <div id="progress" class="progress">
+    <div
+      id="progress"
+      class="progress">
       1 / 15
     </div>
 
@@ -562,6 +639,7 @@ button{
 
 
   <main class="main">
+
 
     <!-- 単元選択 -->
 
@@ -594,9 +672,11 @@ button{
     </div>
 
 
-    <!-- 問題 -->
+
+    <!-- 問題カード -->
 
     <section class="questionCard">
+
 
       <div class="questionLabel">
         英語で答えてみよう！
@@ -604,21 +684,27 @@ button{
 
 
       <!--
-        最初は英語の質問を表示しない。
-        もう一回聞くを押したときに実際の質問を表示する。
+        最初は？？？だけ表示。
+        英語の質問は音声でのみ提示。
       -->
 
-      <div id="question" class="question">
+      <div
+        id="question"
+        class="question">
         ？？？
       </div>
 
 
       <!--
-        最初は日本語訳も表示しない。
+        日本語訳も最初は非表示。
+        「もう一回聞く」で表示。
       -->
 
-      <div id="questionJa" class="questionJa">
+      <div
+        id="questionJa"
+        class="questionJa">
       </div>
+
 
 
       <!-- 速度 -->
@@ -649,11 +735,17 @@ button{
       </div>
 
 
-      <!-- 聞いている状態 -->
 
-      <div id="listenStatus" class="listenStatus">
+      <!-- 状態 -->
+
+      <div
+        id="listenStatus"
+        class="listenStatus">
+
         質問を聞いてください。
+
       </div>
+
 
 
       <!-- あなたの答え -->
@@ -664,17 +756,23 @@ button{
           あなたの答え
         </div>
 
-        <div id="voiceText" class="voiceText">
+        <div
+          id="voiceText"
+          class="voiceText">
+
           ここに英語が表示されます
+
         </div>
 
       </div>
 
 
-      <!-- 判定 -->
+
+      <!-- 判定結果 -->
 
       <div id="judgeResult">
       </div>
+
 
 
       <!-- 答え方の例 -->
@@ -689,6 +787,7 @@ button{
         </div>
 
       </div>
+
 
 
       <!-- ボタン -->
@@ -709,6 +808,7 @@ button{
 
       </div>
 
+
     </section>
 
   </main>
@@ -716,8 +816,9 @@ button{
 </div>
 
 
+
 <!-- =====================================
-     データ
+     データファイル
 ===================================== -->
 
 <script src="conversationData.js"></script>
@@ -726,18 +827,80 @@ button{
 <script>
 
 /* =====================================
+   データを取得
+===================================== */
+
+/*
+  conversationData.js の書き方によって
+  データの名前が違っても対応できるようにする。
+
+  まず conversationData、
+  次に data を探す。
+*/
+
+let allConversationData = null;
+
+
+if(
+  Array.isArray(window.conversationData)
+){
+
+  allConversationData =
+    window.conversationData;
+
+}
+
+
+else if(
+  Array.isArray(window.data)
+){
+
+  allConversationData =
+    window.data;
+
+}
+
+
+else if(
+  typeof conversationData !== "undefined" &&
+  Array.isArray(conversationData)
+){
+
+  allConversationData =
+    conversationData;
+
+}
+
+
+/*
+  データが見つからなかった場合だけ
+  エラーを表示する。
+*/
+
+if(!allConversationData){
+
+  console.error(
+    "conversationData.js のデータが見つかりません。"
+  );
+
+}
+
+
+
+/* =====================================
    基本設定
 ===================================== */
 
 let currentData = [];
+
 let current = 0;
 
 let recognition = null;
 
 let shouldListen = false;
+
 let isJudging = false;
 
-let questionVisible = false;
 
 
 /* =====================================
@@ -745,187 +908,264 @@ let questionVisible = false;
 ===================================== */
 
 const startScreen =
-  document.getElementById("startScreen");
+  document.getElementById(
+    "startScreen"
+  );
 
 const practiceScreen =
-  document.getElementById("practiceScreen");
+  document.getElementById(
+    "practiceScreen"
+  );
 
 const soundButton =
-  document.getElementById("soundButton");
+  document.getElementById(
+    "soundButton"
+  );
 
 const micButton =
-  document.getElementById("micButton");
+  document.getElementById(
+    "micButton"
+  );
 
 const startButton =
-  document.getElementById("startButton");
+  document.getElementById(
+    "startButton"
+  );
 
 const soundMessage =
-  document.getElementById("soundMessage");
+  document.getElementById(
+    "soundMessage"
+  );
 
 const unitSelect =
-  document.getElementById("unitSelect");
+  document.getElementById(
+    "unitSelect"
+  );
 
 const question =
-  document.getElementById("question");
+  document.getElementById(
+    "question"
+  );
 
 const questionJa =
-  document.getElementById("questionJa");
+  document.getElementById(
+    "questionJa"
+  );
 
 const voiceText =
-  document.getElementById("voiceText");
+  document.getElementById(
+    "voiceText"
+  );
 
 const judgeResult =
-  document.getElementById("judgeResult");
+  document.getElementById(
+    "judgeResult"
+  );
 
 const exampleAnswer =
-  document.getElementById("exampleAnswer");
+  document.getElementById(
+    "exampleAnswer"
+  );
 
 const repeatButton =
-  document.getElementById("repeatButton");
+  document.getElementById(
+    "repeatButton"
+  );
 
 const judgeButton =
-  document.getElementById("judgeButton");
+  document.getElementById(
+    "judgeButton"
+  );
 
 const nextButton =
-  document.getElementById("nextButton");
+  document.getElementById(
+    "nextButton"
+  );
 
 const listenStatus =
-  document.getElementById("listenStatus");
+  document.getElementById(
+    "listenStatus"
+  );
 
 const progress =
-  document.getElementById("progress");
+  document.getElementById(
+    "progress"
+  );
+
 
 
 /* =====================================
-   音声設定
+   話す速さ
 ===================================== */
 
 let selectedRate = 1.0;
 
+
 document
-  .querySelectorAll('input[name="speed"]')
+  .querySelectorAll(
+    'input[name="speed"]'
+  )
   .forEach(function(radio){
 
-    radio.addEventListener("change", function(){
+    radio.addEventListener(
+      "change",
+      function(){
 
-      selectedRate =
-        Number(this.value);
+        selectedRate =
+          Number(this.value);
 
-    });
+      }
+    );
 
   });
+
 
 
 /* =====================================
    音声確認
 ===================================== */
 
-soundButton.addEventListener("click", function(){
+soundButton.addEventListener(
+  "click",
+  function(){
 
-  speechSynthesis.cancel();
+    speechSynthesis.cancel();
 
-  const utterance =
-    new SpeechSynthesisUtterance(
-      "Hello."
+    const utterance =
+      new SpeechSynthesisUtterance(
+        "Hello."
+      );
+
+    utterance.lang =
+      "en-US";
+
+    utterance.rate =
+      selectedRate;
+
+    speechSynthesis.speak(
+      utterance
     );
 
-  utterance.lang = "en-US";
-  utterance.rate = selectedRate;
+    soundMessage.textContent =
+      "音声が聞こえたらOKです。";
 
-  speechSynthesis.speak(utterance);
+  }
+);
 
-  soundMessage.textContent =
-    "音声が聞こえたらOKです。";
-
-});
 
 
 /* =====================================
    マイク許可
 ===================================== */
 
-micButton.addEventListener("click", function(){
+micButton.addEventListener(
+  "click",
+  function(){
 
-  if(
-    !("webkitSpeechRecognition" in window) &&
-    !("SpeechRecognition" in window)
-  ){
-
-    soundMessage.textContent =
-      "このブラウザでは音声認識を利用できません。";
-
-    return;
-
-  }
-
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-  const testRecognition =
-    new SpeechRecognition();
-
-  testRecognition.lang = "en-US";
-  testRecognition.continuous = false;
-  testRecognition.interimResults = false;
-
-  testRecognition.onstart = function(){
-
-    soundMessage.textContent =
-      "マイクを使用できます。";
-
-    try{
-      testRecognition.stop();
-    }catch(e){}
-
-  };
-
-  testRecognition.onerror = function(event){
-
-    if(event.error === "not-allowed"){
+    if(
+      !("webkitSpeechRecognition" in window) &&
+      !("SpeechRecognition" in window)
+    ){
 
       soundMessage.textContent =
-        "マイクの使用が許可されていません。ブラウザの設定を確認してください。";
+        "このブラウザでは音声認識を利用できません。";
 
-    }else{
-
-      soundMessage.textContent =
-        "マイクを確認できませんでした。";
+      return;
 
     }
 
-  };
 
-  try{
+    const SpeechRecognition =
+      window.SpeechRecognition ||
+      window.webkitSpeechRecognition;
 
-    testRecognition.start();
 
-  }catch(e){
+    const testRecognition =
+      new SpeechRecognition();
 
-    soundMessage.textContent =
-      "マイクの確認ができませんでした。";
+
+    testRecognition.lang =
+      "en-US";
+
+    testRecognition.continuous =
+      false;
+
+    testRecognition.interimResults =
+      false;
+
+
+    testRecognition.onstart =
+      function(){
+
+        soundMessage.textContent =
+          "マイクを使用できます。";
+
+        try{
+
+          testRecognition.stop();
+
+        }catch(e){}
+
+      };
+
+
+    testRecognition.onerror =
+      function(event){
+
+        if(
+          event.error ===
+          "not-allowed"
+        ){
+
+          soundMessage.textContent =
+            "マイクの使用が許可されていません。ブラウザの設定を確認してください。";
+
+        }
+
+        else{
+
+          soundMessage.textContent =
+            "マイクを確認できませんでした。";
+
+        }
+
+      };
+
+
+    try{
+
+      testRecognition.start();
+
+    }catch(e){
+
+      soundMessage.textContent =
+        "マイクの確認ができませんでした。";
+
+    }
 
   }
+);
 
-});
 
 
 /* =====================================
    練習開始
 ===================================== */
 
-startButton.addEventListener("click", function(){
+startButton.addEventListener(
+  "click",
+  function(){
 
-  startPractice();
+    startPractice();
 
-});
+  }
+);
+
 
 
 function startPractice(){
 
-  if(
-    !Array.isArray(window.conversationData)
-  ){
+  if(!allConversationData){
 
     alert(
       "conversationData.js のデータを読み込めませんでした。"
@@ -935,8 +1175,13 @@ function startPractice(){
 
   }
 
-  startScreen.style.display = "none";
-  practiceScreen.style.display = "block";
+
+  startScreen.style.display =
+    "none";
+
+  practiceScreen.style.display =
+    "block";
+
 
   prepareData();
 
@@ -945,6 +1190,7 @@ function startPractice(){
   showQuestion();
 
 }
+
 
 
 /* =====================================
@@ -956,21 +1202,27 @@ function prepareData(){
   const selected =
     unitSelect.value;
 
+
   if(selected === "all"){
 
     currentData =
-      [...window.conversationData];
-
-  }else{
-
-    currentData =
-      window.conversationData.filter(function(item){
-
-        return item.unit === selected;
-
-      });
+      [...allConversationData];
 
   }
+
+  else{
+
+    currentData =
+      allConversationData.filter(
+        function(item){
+
+          return item.unit === selected;
+
+        }
+      );
+
+  }
+
 
   /*
     問題をシャッフル
@@ -983,21 +1235,28 @@ function prepareData(){
 }
 
 
+
 /* =====================================
    単元変更
 ===================================== */
 
-unitSelect.addEventListener("change", function(){
+unitSelect.addEventListener(
+  "change",
+  function(){
 
-  stopListening();
+    stopListening();
 
-  prepareData();
+    speechSynthesis.cancel();
 
-  current = 0;
+    prepareData();
 
-  showQuestion();
+    current = 0;
 
-});
+    showQuestion();
+
+  }
+);
+
 
 
 /* =====================================
@@ -1012,8 +1271,6 @@ function showQuestion(){
 
   isJudging = false;
 
-  questionVisible = false;
-
 
   if(current >= currentData.length){
 
@@ -1027,14 +1284,8 @@ function showQuestion(){
 
 
   /*
-    ここが今回の重要部分。
-
-    新しい問題では、
-
-    英語の質問 → 非表示
-    日本語訳 → 非表示
-
-    「？？？」だけ表示する。
+    新しい問題では
+    英語も日本語も隠す。
   */
 
   question.textContent =
@@ -1045,7 +1296,7 @@ function showQuestion(){
 
 
   /*
-    答え方の例は最初から表示
+    答え方の例は最初から表示。
   */
 
   exampleAnswer.textContent =
@@ -1053,20 +1304,22 @@ function showQuestion(){
 
 
   /*
-    回答欄をリセット
+    回答欄をリセット。
   */
 
   voiceText.textContent =
     "ここに英語が表示されます";
 
 
-  judgeResult.textContent = "";
+  judgeResult.textContent =
+    "";
 
-  judgeResult.className = "";
+  judgeResult.className =
+    "";
 
 
   /*
-    進み具合
+    進み具合。
   */
 
   progress.textContent =
@@ -1080,19 +1333,20 @@ function showQuestion(){
 
 
   /*
-    少し待ってから質問を読み上げる。
-
-    画面には？？？しか出ていないが、
-    内部では本当の質問を読み上げる。
+    少し待って質問を読み上げる。
   */
 
-  setTimeout(function(){
+  setTimeout(
+    function(){
 
-    speakQuestion();
+      speakQuestion();
 
-  }, 300);
+    },
+    300
+  );
 
 }
+
 
 
 /* =====================================
@@ -1104,6 +1358,7 @@ function speakQuestion(){
   if(!currentData[current]){
     return;
   }
+
 
   stopListening();
 
@@ -1120,32 +1375,37 @@ function speakQuestion(){
     );
 
 
-  utterance.lang = "en-US";
-  utterance.rate = selectedRate;
+  utterance.lang =
+    "en-US";
+
+  utterance.rate =
+    selectedRate;
+
+
+  utterance.onstart =
+    function(){
+
+      listenStatus.textContent =
+        "質問を聞いてください。";
+
+    };
 
 
   /*
     質問を読み終わったら
-    自動的にマイクを開始する。
+    自動的に聞き取り開始。
   */
 
-  utterance.onstart = function(){
+  utterance.onend =
+    function(){
 
-    listenStatus.textContent =
-      "質問を聞いてください。";
+      if(!isJudging){
 
-  };
+        startListening();
 
+      }
 
-  utterance.onend = function(){
-
-    if(!isJudging){
-
-      startListening();
-
-    }
-
-  };
+    };
 
 
   speechSynthesis.speak(
@@ -1155,57 +1415,62 @@ function speakQuestion(){
 }
 
 
+
 /* =====================================
    もう一回聞く
 ===================================== */
 
-repeatButton.addEventListener("click", function(){
+repeatButton.addEventListener(
+  "click",
+  function(){
 
-  if(!currentData[current]){
-    return;
+    if(!currentData[current]){
+      return;
+    }
+
+
+    const item =
+      currentData[current];
+
+
+    /*
+      ここで初めて
+      英語と日本語を表示。
+    */
+
+    question.textContent =
+      item.question;
+
+    questionJa.textContent =
+      item.questionJa || "";
+
+
+    /*
+      判定をリセット。
+    */
+
+    isJudging = false;
+
+    judgeResult.textContent =
+      "";
+
+    judgeResult.className =
+      "";
+
+
+    voiceText.textContent =
+      "ここに英語が表示されます";
+
+
+    /*
+      もう一度質問を読み上げる。
+    */
+
+    speakQuestion();
+
   }
+);
 
-
-  /*
-    「もう一回聞く」を押したら
-    初めて質問を画面に表示する。
-  */
-
-  questionVisible = true;
-
-
-  const item =
-    currentData[current];
-
-
-  question.textContent =
-    item.question;
-
-  questionJa.textContent =
-    item.questionJa || "";
-
-
-  /*
-    それまでの判定をリセット
-  */
-
-  isJudging = false;
-
-  judgeResult.textContent = "";
-  judgeResult.className = "";
-
-
-  /*
-    回答欄もクリア
-  */
-
-  voiceText.textContent =
-    "ここに英語が表示されます";
-
-
-  speakQuestion();
-
-});
 
 
 /* =====================================
@@ -1239,10 +1504,7 @@ function setupRecognition(){
 
 
   /*
-    連続認識を使用。
-
-    子どもが考えている間に
-    すぐ終了しないようにする。
+    連続認識。
   */
 
   recognition.continuous =
@@ -1271,6 +1533,7 @@ function setupRecognition(){
     function(event){
 
       let text = "";
+
 
       for(
         let i = event.resultIndex;
@@ -1303,10 +1566,6 @@ function setupRecognition(){
   recognition.onerror =
     function(event){
 
-      /*
-        permission denied
-      */
-
       if(
         event.error === "not-allowed" ||
         event.error === "service-not-allowed"
@@ -1321,11 +1580,6 @@ function setupRecognition(){
 
       }
 
-
-      /*
-        no-speech や network などの場合は
-        すぐにエラー表示にしない。
-      */
 
       if(
         event.error === "no-speech" ||
@@ -1343,11 +1597,11 @@ function setupRecognition(){
     function(){
 
       /*
-        判定中でなければ
+        判定していない間は
         認識を再開する。
 
-        長く考えている間も
-        できるだけ聞き続ける。
+        子どもが考えている時間が長くても
+        できるだけ待つ。
       */
 
       if(
@@ -1355,21 +1609,20 @@ function setupRecognition(){
         !isJudging
       ){
 
-        setTimeout(function(){
+        setTimeout(
+          function(){
 
-          try{
+            try{
 
-            recognition.start();
+              recognition.start();
 
-          }catch(e){
+            }catch(e){
 
-            /*
-              すでに開始中なら何もしない
-            */
+            }
 
-          }
-
-        }, 500);
+          },
+          500
+        );
 
       }
 
@@ -1379,6 +1632,7 @@ function setupRecognition(){
   return true;
 
 }
+
 
 
 /* =====================================
@@ -1413,14 +1667,10 @@ function startListening(){
 
   }catch(e){
 
-    /*
-      すでに開始されている場合などは
-      そのまま続ける。
-    */
-
   }
 
 }
+
 
 
 /* =====================================
@@ -1445,19 +1695,31 @@ function stopListening(){
 }
 
 
+
 /* =====================================
-   回答の正規化
+   正規化
 ===================================== */
 
 function normalize(text){
 
   return text
+
     .toLowerCase()
-    .replace(/[.,!?'"’“”]/g, "")
-    .replace(/\s+/g, " ")
+
+    .replace(
+      /[.,!?'"’“”]/g,
+      ""
+    )
+
+    .replace(
+      /\s+/g,
+      " "
+    )
+
     .trim();
 
 }
+
 
 
 /* =====================================
@@ -1472,6 +1734,7 @@ judgeButton.addEventListener(
 
   }
 );
+
 
 
 function judgeAnswer(){
@@ -1514,8 +1777,8 @@ function judgeAnswer(){
 
 
   /*
-    pattern が1つの場合にも、
-    patterns が複数の場合にも対応。
+    patterns があれば複数、
+    なければ pattern 1つ。
   */
 
   const patterns =
@@ -1523,7 +1786,8 @@ function judgeAnswer(){
     [item.pattern];
 
 
-  let correct = false;
+  let correct =
+    false;
 
 
   for(
@@ -1537,19 +1801,15 @@ function judgeAnswer(){
     /*
       例：
 
-      pattern = "I want"
+      I want a ball.
 
-      I want a ball
-      ↓
+      pattern = I want
 
-      正解
+      → 正解
 
       I want
-      ↓
 
-      今回は「答えの内容」がないので
-      不正解
-
+      → 内容がないので不正解
     */
 
     if(
@@ -1559,7 +1819,9 @@ function judgeAnswer(){
       userText.length > p.length
     ){
 
-      correct = true;
+      correct =
+        true;
+
       break;
 
     }
@@ -1576,13 +1838,11 @@ function judgeAnswer(){
       "resultCorrect";
 
 
-    /*
-      正解したら正しい英文を読み上げる。
-    */
-
     speakExample();
 
-  }else{
+  }
+
+  else{
 
     judgeResult.textContent =
       "❌ もう一度練習してみましょう";
@@ -1593,6 +1853,7 @@ function judgeAnswer(){
   }
 
 }
+
 
 
 /* =====================================
@@ -1638,6 +1899,7 @@ function speakExample(){
 }
 
 
+
 /* =====================================
    次の質問
 ===================================== */
@@ -1656,6 +1918,7 @@ nextButton.addEventListener(
 
   }
 );
+
 
 
 /* =====================================
