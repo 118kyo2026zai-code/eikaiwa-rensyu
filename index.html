@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -1338,10 +1337,29 @@ function normalize(text){
 
 
 /* =========================================
-   パターン判定
+   答えの型を取得
 ========================================= */
 
-function hasPattern(text){
+/*
+ * 例：
+ *
+ * 問題
+ * Where is your school?
+ *
+ * 型
+ * My school is
+ *
+ * 答え
+ * My school is in Fukuoka.
+ *
+ * ↓
+ *
+ * "in fukuoka"
+ *
+ * だけを取り出す。
+ */
+
+function getAnswerAfterPattern(text){
 
   const normalized =
     normalize(text);
@@ -1352,15 +1370,78 @@ function hasPattern(text){
     [currentItem.pattern];
 
 
-  return patterns.some(
-    function(pattern){
+  for(
+    let i = 0;
+    i < patterns.length;
+    i++
+  ){
 
-      return normalized.includes(
-        normalize(pattern)
-      );
+    const pattern =
+      normalize(patterns[i]);
+
+
+    if(
+      normalized.startsWith(pattern)
+    ){
+
+      const rest =
+        normalized
+          .slice(pattern.length)
+          .trim();
+
+
+      if(rest.length > 0){
+
+        return rest;
+
+      }
 
     }
-  );
+
+  }
+
+
+  return "";
+
+}
+
+
+
+/* =========================================
+   パターン判定
+========================================= */
+
+/*
+ * 以前：
+ *
+ * includes()
+ *
+ * だったため、
+ *
+ * my scooter is my school is up to
+ *
+ * の途中に
+ *
+ * my school is
+ *
+ * が入っているだけでも
+ * 正解になっていた。
+ *
+ *
+ * 今回：
+ *
+ * startsWith()
+ *
+ * に変更。
+ *
+ * 「答えの最初」が
+ * 正しい型であることを要求する。
+ */
+
+function hasPattern(text){
+
+  return getAnswerAfterPattern(text)
+    .length > 0;
 
 }
 
@@ -1380,6 +1461,7 @@ function hasTimeExpression(text){
 
     /*
      * 数字の時刻
+     *
      * at 7
      * at 7:30
      */
@@ -1387,6 +1469,7 @@ function hasTimeExpression(text){
 
     /*
      * 英語の時刻
+     *
      * at seven
      * at seven thirty
      * at ten
@@ -1426,6 +1509,17 @@ function hasTimeExpression(text){
     /\bon\s+friday\b/,
     /\bon\s+saturday\b/,
     /\bon\s+sunday\b/,
+
+    /*
+     * after / before
+     *
+     * 今の問題で使っている
+     * after school に対応
+     */
+    /\bafter\s+school\b/,
+    /\bbefore\s+school\b/,
+    /\bafter\s+dinner\b/,
+    /\bbefore\s+dinner\b/,
 
     /*
      * today / tomorrow など
@@ -1475,14 +1569,52 @@ function hasPlaceExpression(text){
 
   const placePatterns = [
 
+    /*
+     * in + 場所
+     *
+     * in Fukuoka
+     * in Japan
+     * in the park
+     * in my room
+     */
+    /\bin\s+[a-z]+/,
     /\bin\s+(the|a|my)\s+\w+/,
-    /\bat\s+(the|a|my)\s+\w+/,
 
+    /*
+     * at + 場所
+     *
+     * at school
+     * at home
+     * at the park
+     */
     /\bat\s+school\b/,
     /\bat\s+home\b/,
+    /\bat\s+(the|a|my)\s+\w+/,
 
+    /*
+     * on + 場所
+     */
     /\bon\s+(the|my|a)\s+\w+/,
 
+    /*
+     * to + 場所
+     *
+     * to the park
+     * to school
+     * to Fukuoka
+     */
+    /\bto\s+[a-z]+/,
+    /\bto\s+(the|a|my)\s+\w+/,
+
+    /*
+     * near + 場所
+     */
+    /\bnear\s+(the|a|my)\s+\w+/,
+    /\bnear\s+[a-z]+/,
+
+    /*
+     * よく出てくる場所
+     */
     /\bschool\b/,
     /\bhome\b/,
     /\bpark\b/,
@@ -1506,6 +1638,142 @@ function hasPlaceExpression(text){
 
     }
   );
+
+}
+
+
+
+/* =========================================
+   答えの内容チェック
+========================================= */
+
+/*
+ * パターンの後ろだけを調べる。
+ *
+ * これが今回の重要ポイント。
+ *
+ * 例えば
+ *
+ * My school is soccer
+ *
+ * なら、
+ *
+ * パターン
+ * My school is
+ *
+ * は正しい。
+ *
+ * しかし後ろの
+ * soccer
+ *
+ * が「場所」ではないので
+ * 不正解にする。
+ */
+
+function checkAnswerType(answer){
+
+  const answerAfterPattern =
+    getAnswerAfterPattern(answer);
+
+
+  if(!answerAfterPattern){
+
+    return false;
+
+  }
+
+
+  /* =========================
+     時間
+  ========================= */
+
+  if(
+    currentItem.answerType === "time"
+  ){
+
+    return hasTimeExpression(
+      answerAfterPattern
+    );
+
+  }
+
+
+  /* =========================
+     場所
+  ========================= */
+
+  if(
+    currentItem.answerType === "place"
+  ){
+
+    return hasPlaceExpression(
+      answerAfterPattern
+    );
+
+  }
+
+
+  /* =========================
+     もの・内容
+  ========================= */
+
+  if(
+    currentItem.answerType === "thing"
+  ){
+
+    /*
+     * What の答えの場合、
+     * 型の後ろが空でないことを
+     * まず確認。
+     */
+
+    if(
+      !answerAfterPattern
+    ){
+
+      return false;
+
+    }
+
+
+    /*
+     * 時間だけを答えている場合は
+     * What の答えとして不自然なので不正解。
+     */
+
+    if(
+      hasTimeExpression(
+        answerAfterPattern
+      )
+    ){
+
+      return false;
+
+    }
+
+
+    /*
+     * 場所だけを答えている場合も
+     * What の答えとしては不適切。
+     */
+
+    if(
+      hasPlaceExpression(
+        answerAfterPattern
+      )
+    ){
+
+      return false;
+
+    }
+
+
+    return true;
+
+  }
+
+
+  return true;
 
 }
 
@@ -1562,66 +1830,20 @@ judgeButton.addEventListener(
     }
 
 
+    /*
+     * ① 答えの最初が
+     *    正しい型か
+     *
+     * ② 型の後ろに
+     *    正しい種類の答えがあるか
+     */
+
     const patternOK =
       hasPattern(answer);
 
 
-    let typeOK =
-      true;
-
-
-    if(
-      currentItem.answerType ===
-      "time"
-    ){
-
-      typeOK =
-        hasTimeExpression(answer);
-
-    }
-
-
-    else if(
-      currentItem.answerType ===
-      "place"
-    ){
-
-      typeOK =
-        hasPlaceExpression(answer);
-
-    }
-
-
-    else if(
-      currentItem.answerType ===
-      "thing"
-    ){
-
-      /*
-       * What の答えが
-       * 明らかな場所・時間だけに
-       * なっていないか確認
-       */
-
-      if(
-        hasTimeExpression(answer)
-      ){
-
-        typeOK =
-          false;
-
-      }
-
-      else if(
-        hasPlaceExpression(answer)
-      ){
-
-        typeOK =
-          false;
-
-      }
-
-    }
+    const typeOK =
+      checkAnswerType(answer);
 
 
     const correct =
@@ -1884,4 +2106,3 @@ unitSelect.addEventListener(
 
 </body>
 </html>
-```
