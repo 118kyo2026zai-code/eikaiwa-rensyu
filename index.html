@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -6,8 +7,9 @@
 
 <title>ALTと話そう！英会話トレーニング</title>
 
-<style>
+<script src="conversationData.js"></script>
 
+<style>
 *{
   box-sizing:border-box;
 }
@@ -16,275 +18,280 @@ body{
   margin:0;
   min-height:100vh;
   font-family:
+    -apple-system,
+    BlinkMacSystemFont,
     "Noto Sans JP",
     "Yu Gothic",
-    "Hiragino Kaku Gothic ProN",
     sans-serif;
   background:#f3f0e8;
   color:#333;
 }
 
-button,
-select{
-  font-family:inherit;
+.container{
+  width:min(700px, 94%);
+  margin:0 auto;
+  padding:25px 0 40px;
 }
 
 /* =========================
    スタート画面
 ========================= */
 
-.startScreen{
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-}
-
 .startCard{
-  width:min(600px, 100%);
   background:#fffdf8;
   border-radius:18px;
-  padding:45px 30px;
+  padding:32px 28px 35px;
+  box-shadow:0 3px 12px rgba(0,0,0,0.08);
   text-align:center;
-  box-shadow:0 4px 18px rgba(0,0,0,0.08);
+  margin-top:30px;
 }
 
-.startTitle{
-  font-size:32px;
+.mainTitle{
+  font-size:30px;
   font-weight:bold;
-  line-height:1.5;
-  margin-bottom:20px;
+  margin:0 0 5px;
 }
 
-.startText{
-  font-size:18px;
+.subTitle{
+  font-size:22px;
+  font-weight:bold;
+  margin:0 0 18px;
+}
+
+.description{
+  font-size:17px;
   line-height:1.8;
-  margin-bottom:30px;
+  margin-bottom:28px;
 }
 
-.startButtons{
-  display:flex;
-  flex-direction:column;
-  gap:14px;
+/* 手順 */
+
+.step{
+  text-align:left;
+  margin:0 auto 18px;
+  padding:18px 18px 20px;
+  border:2px solid #ddd8ce;
+  border-radius:14px;
+  background:#fff;
 }
 
-.startButtons button{
+.step.active{
+  border-color:#7b3fc6;
+}
+
+.stepNumber{
+  font-size:15px;
+  font-weight:bold;
+  color:#7b3fc6;
+  margin-bottom:5px;
+}
+
+.stepTitle{
+  font-size:20px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+
+.stepText{
+  font-size:14px;
+  line-height:1.6;
+  color:#666;
+  margin-bottom:12px;
+}
+
+button{
+  font-family:inherit;
+  cursor:pointer;
+}
+
+.step button{
+  display:block;
   width:100%;
   border:none;
-  border-radius:12px;
-  padding:15px;
+  border-radius:10px;
+  padding:14px 10px;
   font-size:18px;
   font-weight:bold;
-  cursor:pointer;
-  background:#e9e4d8;
-  color:#333;
-}
-
-.startButtons button:hover{
-  opacity:0.85;
-}
-
-/* 練習開始ボタン */
-#startButton{
-  background:#555;
+  background:#7b3fc6;
   color:white;
 }
 
-#startButton:disabled{
-  background:#d2cec4;
+.step button:disabled{
+  background:#d8d4cc;
   color:#999;
   cursor:not-allowed;
-  opacity:1;
 }
 
-.startStatus{
+.status{
   min-height:30px;
-  margin-top:18px;
+  margin:12px 0 8px;
   font-size:16px;
+  font-weight:bold;
   line-height:1.6;
-  color:#666;
+}
+
+.status.checking{
+  color:#7b3fc6;
+}
+
+.status.success{
+  color:#4d7b45;
+}
+
+.status.error{
+  color:#b44;
 }
 
 /* =========================
    練習画面
 ========================= */
 
-.practiceScreen{
+#practiceScreen{
   display:none;
-  min-height:100vh;
 }
 
-.header{
+.practiceHeader{
   background:#fffdf8;
-  padding:15px 20px;
-  text-align:center;
-  border-bottom:1px solid #ddd8cc;
+  border-radius:14px;
+  padding:13px 16px;
+  margin-bottom:16px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+.headerTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
 }
 
 .headerTitle{
-  font-size:23px;
+  font-size:20px;
   font-weight:bold;
 }
 
-.progress{
-  margin-top:5px;
-  font-size:14px;
-  color:#777;
-}
-
-.main{
-  width:min(760px, calc(100% - 30px));
-  margin:20px auto 40px;
-}
-
-.unitArea{
-  text-align:center;
-  margin-bottom:18px;
-}
-
-.unitArea select{
+select{
   font-size:16px;
-  padding:8px 12px;
-  border:1px solid #bbb;
+  padding:7px 10px;
+  border:1px solid #ccc;
   border-radius:8px;
   background:white;
 }
 
+.progress{
+  margin-top:8px;
+  font-size:14px;
+  color:#777;
+}
+
 .questionCard{
   background:white;
-  border-radius:16px;
-  padding:25px 22px;
+  border-radius:18px;
+  padding:30px 24px;
   box-shadow:0 3px 12px rgba(0,0,0,0.07);
+  text-align:center;
 }
 
 .questionLabel{
   font-size:18px;
   font-weight:bold;
+  color:#555;
+  margin-bottom:20px;
+}
+
+.questionEnglish{
+  min-height:50px;
+  font-size:28px;
+  font-weight:bold;
+  line-height:1.5;
+  margin-bottom:8px;
+}
+
+.questionJapanese{
+  min-height:34px;
+  font-size:18px;
+  color:#666;
+  margin-bottom:25px;
+}
+
+.answerLabel{
+  font-size:16px;
+  font-weight:bold;
+  color:#666;
+  margin-bottom:8px;
+}
+
+.recognized{
+  min-height:60px;
+  padding:12px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  background:#fafafa;
+  font-size:20px;
+  line-height:1.5;
   margin-bottom:15px;
 }
 
-.question{
-  min-height:55px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:30px;
+.result{
+  min-height:42px;
+  font-size:22px;
   font-weight:bold;
-  line-height:1.5;
-  text-align:center;
-}
-
-.questionJa{
-  min-height:30px;
-  margin-top:8px;
-  font-size:18px;
-  color:#666;
-  text-align:center;
-}
-
-.speedArea{
-  margin-top:20px;
-  text-align:center;
-  font-size:16px;
-}
-
-.speedArea label{
-  margin:0 8px;
-  cursor:pointer;
-}
-
-.status{
-  min-height:28px;
-  margin-top:18px;
-  text-align:center;
-  color:#666;
-}
-
-.answerBox{
-  margin-top:20px;
-  padding:18px;
-  background:#faf9f5;
-  border:1px solid #ddd8cc;
-  border-radius:12px;
-}
-
-.answerTitle{
-  font-weight:bold;
-  margin-bottom:8px;
-}
-
-.recognizedText{
-  min-height:30px;
-  font-size:20px;
-  line-height:1.6;
-  word-break:break-word;
+  margin:12px 0;
 }
 
 .exampleBox{
-  margin-top:15px;
-  padding:18px;
   background:#f7f5ef;
   border-radius:12px;
+  padding:15px;
+  margin-top:15px;
 }
 
-.exampleTitle{
-  font-weight:bold;
-  margin-bottom:8px;
+.exampleLabel{
+  font-size:14px;
+  color:#777;
+  margin-bottom:5px;
 }
 
 .exampleText{
-  font-size:20px;
-  line-height:1.6;
-}
-
-.judgeResult{
-  min-height:42px;
-  margin-top:20px;
-  text-align:center;
-  font-size:22px;
+  font-size:21px;
   font-weight:bold;
+  line-height:1.5;
 }
 
-.resultCorrect{
-  color:#333;
+.controls{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:20px;
 }
 
-.resultWrong{
+.controls button{
+  border:none;
+  border-radius:10px;
+  padding:12px 18px;
+  font-size:16px;
+  font-weight:bold;
+  background:#7b3fc6;
+  color:white;
+}
+
+.controls button.secondary{
+  background:#888;
+}
+
+.speedArea{
+  margin-top:22px;
+  font-size:16px;
   color:#555;
 }
 
-.buttons{
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:20px;
+.speedArea label{
+  margin:0 10px;
 }
 
-.buttons button{
-  border:none;
-  border-radius:10px;
-  padding:13px 20px;
-  font-size:16px;
-  font-weight:bold;
-  cursor:pointer;
-  background:#e9e4d8;
-  color:#333;
-}
-
-.buttons button:hover{
-  opacity:0.85;
-}
-
-#judgeButton{
-  background:#333;
-  color:white;
-}
-
-#nextButton{
-  background:#555;
-  color:white;
+.speedArea input{
+  margin-right:4px;
 }
 
 /* =========================
@@ -293,237 +300,244 @@ select{
 
 @media(max-width:600px){
 
+  .container{
+    width:94%;
+    padding-top:15px;
+  }
+
   .startCard{
-    padding:35px 20px;
+    margin-top:15px;
+    padding:25px 18px 28px;
   }
 
-  .startTitle{
-    font-size:27px;
+  .mainTitle{
+    font-size:26px;
   }
 
-  .startText{
+  .subTitle{
+    font-size:20px;
+  }
+
+  .description{
     font-size:16px;
   }
 
-  .questionCard{
-    padding:20px 15px;
+  .step{
+    padding:15px 14px 17px;
+  }
+
+  .stepTitle{
+    font-size:19px;
+  }
+
+  .step button{
+    font-size:17px;
   }
 
   .questionLabel{
     font-size:17px;
   }
 
-  .question{
-    font-size:25px;
-  }
-
-  .questionJa{
-    font-size:16px;
-  }
-
   .speedArea{
     font-size:15px;
   }
 
-  .recognizedText,
-  .exampleText{
+  .questionEnglish{
+    font-size:24px;
+  }
+
+  .questionJapanese{
+    font-size:17px;
+  }
+
+  .recognized{
     font-size:18px;
   }
-
-  .buttons button{
-    width:100%;
-  }
-
 }
-
 </style>
 </head>
 
 <body>
 
+<div class="container">
 
 <!-- =========================
      スタート画面
 ========================= -->
 
-<div id="startScreen" class="startScreen">
+<div id="startScreen" class="startCard">
 
-  <div class="startCard">
+  <h1 class="mainTitle">ALTと話そう！</h1>
+  <div class="subTitle">英会話トレーニング</div>
 
-    <div class="startTitle">
-      ALTと話そう！<br>
-      英会話トレーニング
+  <div class="description">
+    英語の質問を聞いて、<br>
+    英語で答えてみましょう。
+  </div>
+
+
+  <!-- STEP 1 -->
+  <div id="step1" class="step active">
+
+    <div class="stepNumber">① 音声を確認</div>
+
+    <div class="stepTitle">
+      まず、音声を確認します
     </div>
 
-    <div class="startText">
-      英語の質問を聞いて、<br>
-      英語で答えてみましょう。
+    <div class="stepText">
+      ボタンを押して、英語の音声が聞こえるか確認してください。
     </div>
 
+    <button id="testVoiceButton">
+      音声を確認
+    </button>
 
-    <div class="startButtons">
-
-      <!-- 音声確認 -->
-      <button id="testVoiceButton">
-        音声を確認
-      </button>
+  </div>
 
 
-      <!-- マイク許可 -->
-      <button id="permissionButton">
-        マイクを許可
-      </button>
+  <!-- STEP 2 -->
+  <div id="step2" class="step">
 
+    <div class="stepNumber">② マイクを許可</div>
 
-      <!-- 最初は押せない -->
-      <button id="startButton" disabled>
-        練習を始める
-      </button>
-
+    <div class="stepTitle">
+      次に、マイクを使えるようにします
     </div>
 
-
-    <div id="startStatus" class="startStatus">
-      まず「音声を確認」を押してください。
+    <div class="stepText">
+      「マイクを許可」を押して、表示された画面で許可してください。
     </div>
+
+    <button id="permissionButton">
+      マイクを許可
+    </button>
+
+  </div>
+
+
+  <!-- 状態表示 -->
+  <div id="startStatus" class="status">
+    まず「音声を確認」を押してください。
+  </div>
+
+
+  <!-- STEP 3 -->
+  <div id="step3" class="step">
+
+    <div class="stepNumber">③ 練習スタート</div>
+
+    <div class="stepTitle">
+      準備ができたら始めます
+    </div>
+
+    <div class="stepText">
+      英語の質問が聞こえたら、英語で答えてください。
+    </div>
+
+    <button id="startButton" disabled>
+      練習を始める
+    </button>
 
   </div>
 
 </div>
-
 
 
 <!-- =========================
      練習画面
 ========================= -->
 
-<div id="practiceScreen" class="practiceScreen">
+<div id="practiceScreen">
 
-  <div class="header">
+  <div class="practiceHeader">
 
-    <div class="headerTitle">
-      ALTと話そう！
-    </div>
+    <div class="headerTop">
 
-    <div id="progress" class="progress">
-      1 / 15
-    </div>
-
-  </div>
-
-
-  <div class="main">
-
-    <div class="unitArea">
+      <div class="headerTitle">
+        ALTと話そう！
+      </div>
 
       <select id="unitSelect">
-
-        <option value="all">
-          全部
-        </option>
-
-        <option value="What">
-          What
-        </option>
-
-        <option value="Where">
-          Where
-        </option>
-
-        <option value="When">
-          When
-        </option>
-
+        <option value="all">すべて</option>
+        <option value="What">What</option>
+        <option value="Where">Where</option>
+        <option value="When">When</option>
       </select>
 
     </div>
 
+    <div id="progress" class="progress"></div>
 
-    <div class="questionCard">
+  </div>
 
-      <div class="questionLabel">
-        英語で答えてみよう！
+
+  <div class="questionCard">
+
+    <div class="questionLabel">
+      英語で答えてみよう！
+    </div>
+
+    <div id="questionEnglish" class="questionEnglish">
+      ？？？
+    </div>
+
+    <div id="questionJapanese" class="questionJapanese">
+    </div>
+
+
+    <div class="answerLabel">
+      あなたの答え
+    </div>
+
+    <div id="recognizedText" class="recognized">
+    </div>
+
+
+    <div id="result" class="result">
+    </div>
+
+
+    <div class="exampleBox">
+
+      <div class="exampleLabel">
+        答え方の例
       </div>
 
-
-      <div id="question" class="question">
-        ？？？
+      <div id="exampleText" class="exampleText">
       </div>
 
-
-      <div id="questionJa" class="questionJa"></div>
-
-
-      <div class="speedArea">
-
-        <label>
-          <input
-            type="radio"
-            name="speed"
-            value="1"
-            checked
-          >
-          ナチュラル
-        </label>
-
-        <label>
-          <input
-            type="radio"
-            name="speed"
-            value="0.75"
-          >
-          ゆっくり
-        </label>
-
-      </div>
+    </div>
 
 
-      <div id="status" class="status"></div>
+    <div class="controls">
+
+      <button id="judgeButton">
+        判定
+      </button>
+
+      <button id="nextButton">
+        次の問題
+      </button>
+
+      <button id="repeatButton" class="secondary">
+        もう一回聞く
+      </button>
+
+    </div>
 
 
-      <div class="answerBox">
+    <div class="speedArea">
 
-        <div class="answerTitle">
-          あなたの答え
-        </div>
+      <label>
+        <input type="radio" name="speed" value="1" checked>
+        ナチュラル
+      </label>
 
-        <div id="recognizedText" class="recognizedText">
-        </div>
-
-      </div>
-
-
-      <div class="exampleBox">
-
-        <div class="exampleTitle">
-          答え方の例
-        </div>
-
-        <div id="exampleAnswer" class="exampleText">
-        </div>
-
-      </div>
-
-
-      <div id="judgeResult" class="judgeResult">
-      </div>
-
-
-      <div class="buttons">
-
-        <button id="repeatButton">
-          もう一回聞く
-        </button>
-
-        <button id="judgeButton">
-          判定
-        </button>
-
-        <button id="nextButton">
-          次の質問
-        </button>
-
-      </div>
+      <label>
+        <input type="radio" name="speed" value="0.75">
+        ゆっくり
+      </label>
 
     </div>
 
@@ -531,97 +545,30 @@ select{
 
 </div>
 
-
-
-<!-- =========================
-     会話データ
-========================= -->
-
-<script src="conversationData.js"></script>
-
+</div>
 
 
 <script>
 
-/* =========================
-   データ読み込み
-========================= */
+/* =========================================
+   基本設定
+========================================= */
 
-let allConversationData = null;
-
-
-if(Array.isArray(window.conversationData)){
-
-  allConversationData =
-    window.conversationData;
-
-}
-else if(Array.isArray(window.data)){
-
-  allConversationData =
-    window.data;
-
-}
-else if(
-  typeof conversationData !== "undefined" &&
-  Array.isArray(conversationData)
-){
-
-  allConversationData =
-    conversationData;
-
-}
-else if(
-  typeof data !== "undefined" &&
-  Array.isArray(data)
-){
-
-  allConversationData =
-    data;
-
-}
-
-
-
-/* =========================
-   データ確認
-========================= */
-
-if(!Array.isArray(allConversationData)){
-
-  alert(
-    "conversationData.js のデータを読み込めませんでした。"
-  );
-
-}
-
-
-
-/* =========================
-   変数
-========================= */
-
-let currentData = [];
-
+let questions = [];
 let currentIndex = 0;
-
 let currentItem = null;
 
 let recognition = null;
 
-let shouldListen = false;
-
+let isListening = false;
 let isJudging = false;
-
-let recognizedText = "";
 
 let voiceChecked = false;
 
 
-
-/* =========================
-   要素
-========================= */
+/* =========================================
+   画面要素
+========================================= */
 
 const startScreen =
   document.getElementById("startScreen");
@@ -641,29 +588,35 @@ const startButton =
 const startStatus =
   document.getElementById("startStatus");
 
+const step1 =
+  document.getElementById("step1");
+
+const step2 =
+  document.getElementById("step2");
+
+const step3 =
+  document.getElementById("step3");
+
 const unitSelect =
   document.getElementById("unitSelect");
 
-const question =
-  document.getElementById("question");
+const questionEnglish =
+  document.getElementById("questionEnglish");
 
-const questionJa =
-  document.getElementById("questionJa");
+const questionJapanese =
+  document.getElementById("questionJapanese");
 
-const status =
-  document.getElementById("status");
-
-const recognizedTextElement =
+const recognizedText =
   document.getElementById("recognizedText");
 
-const exampleAnswer =
-  document.getElementById("exampleAnswer");
+const result =
+  document.getElementById("result");
 
-const judgeResult =
-  document.getElementById("judgeResult");
+const exampleText =
+  document.getElementById("exampleText");
 
-const repeatButton =
-  document.getElementById("repeatButton");
+const progress =
+  document.getElementById("progress");
 
 const judgeButton =
   document.getElementById("judgeButton");
@@ -671,535 +624,192 @@ const judgeButton =
 const nextButton =
   document.getElementById("nextButton");
 
-const progress =
-  document.getElementById("progress");
+const repeatButton =
+  document.getElementById("repeatButton");
 
 
+/* =========================================
+   音声確認中かどうか
+========================================= */
 
-/* =========================
-   音声速度
-========================= */
+let checkingVoice = false;
 
-function getSpeechRate(){
 
-  const selected =
-    document.querySelector(
-      'input[name="speed"]:checked'
-    );
+/* =========================================
+   状態表示
+========================================= */
 
-  if(!selected){
+function setStartStatus(text, type=""){
 
-    return 1;
+  startStatus.textContent = text;
 
-  }
-
-  return Number(selected.value);
-
+  startStatus.className =
+    "status" +
+    (type ? " " + type : "");
 }
 
 
+/* =========================================
+   音声確認
+========================================= */
 
-/* =========================
-   テキスト正規化
-========================= */
+testVoiceButton.addEventListener("click", function(){
 
-function normalize(text){
+  if(checkingVoice) return;
 
-  return text
-    .toLowerCase()
-    .replace(/[.,!?'"’“”]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  checkingVoice = true;
 
-}
+  testVoiceButton.disabled = true;
 
+  step1.classList.add("active");
 
-
-/* =========================
-   音声読み上げ
-========================= */
-
-function speakText(text, callback){
-
-  if(!text){
-
-    if(callback){
-
-      callback();
-
-    }
-
-    return;
-
-  }
-
-
-  window.speechSynthesis.cancel();
-
-
-  const utterance =
-    new SpeechSynthesisUtterance(text);
-
-
-  utterance.lang =
-    "en-US";
-
-
-  utterance.rate =
-    getSpeechRate();
-
-
-  utterance.onend =
-    function(){
-
-      if(callback){
-
-        callback();
-
-      }
-
-    };
-
-
-  window.speechSynthesis.speak(
-    utterance
+  setStartStatus(
+    "音声確認中。しばらくおまちください・・・",
+    "checking"
   );
 
-}
+  speechSynthesis.cancel();
 
+  const utterance =
+    new SpeechSynthesisUtterance("Hello.");
 
+  utterance.lang = "en-US";
+  utterance.rate = 1.0;
 
-/* =========================
-   音声確認
-========================= */
+  utterance.onend = function(){
 
-testVoiceButton.addEventListener(
-  "click",
-  function(){
+    checkingVoice = false;
 
-    /*
-     * 音声確認中
-     */
+    voiceChecked = true;
 
-    startStatus.textContent =
-      "音声確認中。しばらくおまちください・・・";
+    testVoiceButton.disabled = false;
 
+    step1.classList.remove("active");
+    step2.classList.add("active");
+    step3.classList.add("active");
 
-    testVoiceButton.disabled =
-      true;
-
-
-    /*
-     * 確認用の短い音声
-     *
-     * 英語の練習とは関係ない
-     * 確認専用の音声です。
-     */
-
-    const utterance =
-      new SpeechSynthesisUtterance(
-        "Hello."
-      );
-
-
-    utterance.lang =
-      "en-US";
-
-
-    utterance.rate =
-      1;
-
-
-    utterance.onend =
-      function(){
-
-        /*
-         * 音声確認完了
-         */
-
-        voiceChecked =
-          true;
-
-
-        startStatus.textContent =
-          "音声を確認しました。練習を始められます。";
-
-
-        /*
-         * 練習開始ボタンを有効にする
-         */
-
-        startButton.disabled =
-          false;
-
-
-        testVoiceButton.disabled =
-          false;
-
-      };
-
-
-    utterance.onerror =
-      function(){
-
-        voiceChecked =
-          false;
-
-
-        startStatus.textContent =
-          "音声を確認できませんでした。もう一度お試しください。";
-
-
-        testVoiceButton.disabled =
-          false;
-
-      };
-
-
-    window.speechSynthesis.cancel();
-
-    window.speechSynthesis.speak(
-      utterance
+    setStartStatus(
+      "音声を確認しました。次に「マイクを許可」を押してください。",
+      "success"
     );
 
-  }
-);
+    startButton.disabled = false;
+  };
 
 
+  utterance.onerror = function(){
 
-/* =========================
+    checkingVoice = false;
+
+    testVoiceButton.disabled = false;
+
+    setStartStatus(
+      "音声を確認できませんでした。もう一度お試しください。",
+      "error"
+    );
+
+  };
+
+  speechSynthesis.speak(utterance);
+
+});
+
+
+/* =========================================
    マイク許可
-========================= */
+========================================= */
 
-permissionButton.addEventListener(
-  "click",
-  async function(){
+permissionButton.addEventListener("click", async function(){
 
-    startStatus.textContent =
-      "マイクの確認中です・・・";
-
-
-    try{
-
-      const stream =
-        await navigator.mediaDevices.getUserMedia({
-          audio:true
-        });
-
-
-      stream
-        .getTracks()
-        .forEach(
-          function(track){
-
-            track.stop();
-
-          }
-        );
-
-
-      startStatus.textContent =
-        "マイクを使用できます。";
-
-
-    }
-    catch(error){
-
-      startStatus.textContent =
-        "マイクが許可されていません。";
-
-
-      alert(
-        "マイクが許可されていません。\n" +
-        "ブラウザの設定を確認してください。"
-      );
-
-    }
-
-  }
-);
-
-
-
-/* =========================
-   音声認識
-========================= */
-
-if(
-  "webkitSpeechRecognition" in window ||
-  "SpeechRecognition" in window
-){
-
-  const SpeechRecognition =
-    window.SpeechRecognition ||
-    window.webkitSpeechRecognition;
-
-
-  recognition =
-    new SpeechRecognition();
-
-
-  recognition.lang =
-    "en-US";
-
-
-  recognition.continuous =
-    true;
-
-
-  recognition.interimResults =
-    false;
-
-
-
-  recognition.onresult =
-    function(event){
-
-      let text = "";
-
-
-      for(
-        let i = event.resultIndex;
-        i < event.results.length;
-        i++
-      ){
-
-        if(
-          event.results[i].isFinal
-        ){
-
-          text +=
-            event.results[i][0].transcript +
-            " ";
-
-        }
-
-      }
-
-
-      text =
-        text.trim();
-
-
-      if(text){
-
-        recognizedText =
-          (
-            recognizedText +
-            " " +
-            text
-          ).trim();
-
-
-        recognizedTextElement.textContent =
-          recognizedText;
-
-      }
-
-    };
-
-
-
-  recognition.onend =
-    function(){
-
-      if(
-        shouldListen &&
-        !isJudging
-      ){
-
-        setTimeout(
-          function(){
-
-            try{
-
-              recognition.start();
-
-            }
-            catch(error){
-
-            }
-
-          },
-          500
-        );
-
-      }
-
-    };
-
-
-
-  recognition.onerror =
-    function(event){
-
-      if(
-        event.error === "not-allowed"
-      ){
-
-        status.textContent =
-          "マイクが許可されていません。";
-
-      }
-      else if(
-        event.error === "no-speech"
-      ){
-
-        status.textContent =
-          "声が聞こえませんでした。";
-
-      }
-
-    };
-
-}
-
-
-
-/* =========================
-   認識開始
-========================= */
-
-function startRecognition(){
-
-  if(!recognition){
-
-    return;
-
-  }
-
-
-  shouldListen =
-    true;
-
-
-  isJudging =
-    false;
-
-
-  recognizedText =
-    "";
-
-
-  recognizedTextElement.textContent =
-    "";
-
-
-  status.textContent =
-    "話してください。";
-
+  /*
+   * 音声確認中なら、
+   * 「音声確認中」の表示を絶対に上書きしない。
+   */
 
   try{
 
-    recognition.start();
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        audio:true
+      });
+
+    stream.getTracks().forEach(function(track){
+      track.stop();
+    });
+
+
+    /*
+     * 音声確認中なら表示を変更しない
+     */
+
+    if(checkingVoice){
+
+      return;
+
+    }
+
+
+    setStartStatus(
+      "マイクを使用できます。準備ができました。",
+      "success"
+    );
+
+    step2.classList.remove("active");
+    step3.classList.add("active");
 
   }
   catch(error){
 
-  }
+    /*
+     * 音声確認中なら、
+     * ここでも音声確認中の表示を維持する。
+     */
 
-}
+    if(checkingVoice){
 
-
-
-/* =========================
-   認識停止
-========================= */
-
-function stopRecognition(){
-
-  shouldListen =
-    false;
-
-
-  if(recognition){
-
-    try{
-
-      recognition.stop();
-
-    }
-    catch(error){
+      return;
 
     }
 
+    setStartStatus(
+      "マイクを許可できませんでした。もう一度お試しください。",
+      "error"
+    );
+
   }
 
-}
+});
 
 
-
-/* =========================
+/* =========================================
    練習開始
-========================= */
+========================================= */
 
-startButton.addEventListener(
-  "click",
-  function(){
+startButton.addEventListener("click", function(){
 
-    /*
-     * 音声確認が終わっていなければ
-     * 練習を開始しない
-     */
+  if(!voiceChecked){
 
-    if(!voiceChecked){
+    setStartStatus(
+      "先に「音声を確認」をしてください。",
+      "error"
+    );
 
-      return;
-
-    }
-
-
-    if(
-      !Array.isArray(allConversationData) ||
-      allConversationData.length === 0
-    ){
-
-      alert(
-        "会話データが読み込まれていません。"
-      );
-
-      return;
-
-    }
-
-
-    /*
-     * スタート画面を閉じる
-     */
-
-    startScreen.style.display =
-      "none";
-
-
-    /*
-     * 練習画面を表示
-     */
-
-    practiceScreen.style.display =
-      "block";
-
-
-    /*
-     * 問題を作る
-     */
-
-    makeQuestionList();
-
-
-    /*
-     * 第1問を表示・読み上げる
-     */
-
-    showQuestion();
-
+    return;
   }
-);
 
 
+  startScreen.style.display = "none";
+  practiceScreen.style.display = "block";
 
-/* =========================
+
+  makeQuestionList();
+
+});
+
+
+/* =========================================
    問題リスト作成
-========================= */
+========================================= */
 
 function makeQuestionList(){
 
@@ -1209,265 +819,394 @@ function makeQuestionList(){
 
   if(unit === "all"){
 
-    currentData =
-      [...allConversationData];
+    questions =
+      [...conversationData];
 
   }
   else{
 
-    currentData =
-      allConversationData.filter(
-        function(item){
+    questions =
+      conversationData.filter(function(item){
 
-          return item.unit === unit;
+        return item.unit === unit;
 
-        }
-      );
+      });
 
   }
 
 
-  currentIndex =
-    0;
+  questions =
+    questions.sort(function(){
+
+      return Math.random() - 0.5;
+
+    });
+
+
+  currentIndex = 0;
+
+  showQuestion();
 
 }
 
 
-
-/* =========================
-   単元変更
-========================= */
-
-unitSelect.addEventListener(
-  "change",
-  function(){
-
-    stopRecognition();
-
-    window.speechSynthesis.cancel();
-
-    makeQuestionList();
-
-    showQuestion();
-
-  }
-);
-
-
-
-/* =========================
+/* =========================================
    問題表示
-========================= */
+========================================= */
 
 function showQuestion(){
 
   stopRecognition();
 
-  window.speechSynthesis.cancel();
+  speechSynthesis.cancel();
 
-
-  isJudging =
-    false;
-
-
-  recognizedText =
-    "";
-
-
-  judgeResult.textContent =
-    "";
-
-
-  judgeResult.className =
-    "judgeResult";
-
-
-  recognizedTextElement.textContent =
-    "";
-
-
-  status.textContent =
-    "";
-
+  isJudging = false;
 
   currentItem =
-    currentData[currentIndex];
+    questions[currentIndex];
 
 
   if(!currentItem){
 
     return;
-
   }
 
-
-  /*
-   * 英語の質問は最初は隠す
-   */
-
-  question.textContent =
-    "？？？";
-
-
-  /*
-   * 日本語も最初は隠す
-   */
-
-  questionJa.textContent =
-    "";
-
-
-  /*
-   * 答え方の例は最初から表示
-   */
-
-  exampleAnswer.textContent =
-    currentItem.example || "";
-
-
-  /*
-   * 進み具合
-   */
 
   progress.textContent =
     (currentIndex + 1) +
     " / " +
-    currentData.length;
+    questions.length;
 
 
   /*
-   * ここでは確認音声は流さない。
-   *
-   * いきなり第1問を読み上げる。
-   *
-   * 質問を読み終わってから
-   * マイクを開始する。
+   * 最初は英語も日本語も見せない
    */
 
-  speakQuestion(
-    function(){
+  questionEnglish.textContent =
+    "？？？";
 
-      if(!isJudging){
+  questionJapanese.textContent =
+    "";
 
-        startRecognition();
 
-      }
+  recognizedText.textContent =
+    "";
 
-    }
-  );
+
+  result.textContent =
+    "";
+
+
+  /*
+   * 答え方の例は最初から見せる
+   */
+
+  exampleText.textContent =
+    currentItem.example;
+
+
+  speakQuestion(function(){
+
+    startRecognition();
+
+  });
 
 }
 
 
-
-/* =========================
-   質問読み上げ
-========================= */
+/* =========================================
+   質問を読み上げる
+========================================= */
 
 function speakQuestion(callback){
 
-  if(!currentItem){
+  speechSynthesis.cancel();
 
-    return;
+  const utterance =
+    new SpeechSynthesisUtterance(
+      currentItem.question
+    );
 
-  }
+  utterance.lang = "en-US";
 
-
-  speakText(
-    currentItem.question,
-    callback
-  );
-
-}
+  utterance.rate =
+    getSpeechRate();
 
 
+  utterance.onend = function(){
 
-/* =========================
-   例文読み上げ
-========================= */
+    if(callback){
 
-function speakExample(){
+      callback();
 
-  if(!currentItem){
+    }
 
-    return;
-
-  }
+  };
 
 
-  speakText(
-    currentItem.example || ""
-  );
+  speechSynthesis.speak(utterance);
 
 }
 
 
-
-/* =========================
+/* =========================================
    もう一回聞く
-========================= */
+========================================= */
 
-repeatButton.addEventListener(
-  "click",
-  function(){
+repeatButton.addEventListener("click", function(){
 
-    if(!currentItem){
+  if(!currentItem) return;
 
-      return;
+
+  stopRecognition();
+
+  speechSynthesis.cancel();
+
+  isJudging = false;
+
+
+  /*
+   * 「もう一回聞く」を押したら
+   * 英語と日本語を表示
+   */
+
+  questionEnglish.textContent =
+    currentItem.question;
+
+  questionJapanese.textContent =
+    currentItem.questionJa;
+
+
+  recognizedText.textContent =
+    "";
+
+  result.textContent =
+    "";
+
+
+  speakQuestion(function(){
+
+    startRecognition();
+
+  });
+
+});
+
+
+/* =========================================
+   音声認識
+========================================= */
+
+function createRecognition(){
+
+  const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+
+  if(!SpeechRecognition){
+
+    alert(
+      "このブラウザでは音声認識を利用できません。Chromeなどでお試しください。"
+    );
+
+    return null;
+
+  }
+
+
+  const rec =
+    new SpeechRecognition();
+
+
+  rec.lang = "en-US";
+
+  rec.continuous = true;
+
+  rec.interimResults = false;
+
+
+  rec.onresult = function(event){
+
+    let text = "";
+
+    for(
+      let i = event.resultIndex;
+      i < event.results.length;
+      i++
+    ){
+
+      if(event.results[i].isFinal){
+
+        text +=
+          event.results[i][0].transcript;
+
+      }
 
     }
 
 
-    stopRecognition();
+    if(text){
 
-    window.speechSynthesis.cancel();
+      recognizedText.textContent =
+        (
+          recognizedText.textContent +
+          " " +
+          text
+        ).trim();
 
+    }
 
-    isJudging =
-      false;
-
-
-    /*
-     * もう一回聞くを押したら
-     * 英語を表示
-     */
-
-    question.textContent =
-      currentItem.question;
+  };
 
 
-    /*
-     * 日本語も表示
-     */
+  rec.onend = function(){
 
-    questionJa.textContent =
-      currentItem.questionJa || "";
+    if(
+      isListening &&
+      !isJudging
+    ){
 
+      setTimeout(function(){
 
-    /*
-     * 質問を読み上げる
-     */
+        if(
+          isListening &&
+          !isJudging
+        ){
 
-    speakQuestion(
-      function(){
+          try{
 
-        if(!isJudging){
+            rec.start();
 
-          startRecognition();
+          }
+          catch(e){}
 
         }
 
-      }
-    );
+      },500);
+
+    }
+
+  };
+
+
+  rec.onerror = function(event){
+
+    if(event.error === "not-allowed"){
+
+      result.textContent =
+        "マイクの使用を許可してください。";
+
+    }
+
+  };
+
+
+  return rec;
+
+}
+
+
+/* =========================================
+   認識開始
+========================================= */
+
+function startRecognition(){
+
+  if(!recognition){
+
+    recognition =
+      createRecognition();
 
   }
-);
 
 
+  if(!recognition){
 
-/* =========================
-   時間表現チェック
-========================= */
+    return;
+
+  }
+
+
+  isListening = true;
+
+
+  try{
+
+    recognition.start();
+
+  }
+  catch(e){}
+
+}
+
+
+/* =========================================
+   認識停止
+========================================= */
+
+function stopRecognition(){
+
+  isListening = false;
+
+  if(recognition){
+
+    try{
+
+      recognition.stop();
+
+    }
+    catch(e){}
+
+  }
+
+}
+
+
+/* =========================================
+   正規化
+========================================= */
+
+function normalize(text){
+
+  return text
+    .toLowerCase()
+    .replace(/[.,!?'"’“”]/g,"")
+    .replace(/\s+/g," ")
+    .trim();
+
+}
+
+
+/* =========================================
+   パターン判定
+========================================= */
+
+function hasPattern(text){
+
+  const normalized =
+    normalize(text);
+
+
+  const patterns =
+    currentItem.patterns ||
+    [currentItem.pattern];
+
+
+  return patterns.some(function(pattern){
+
+    return normalized.includes(
+      normalize(pattern)
+    );
+
+  });
+
+}
+
+
+/* =========================================
+   時間表現
+========================================= */
 
 function hasTimeExpression(text){
 
@@ -1475,87 +1214,50 @@ function hasTimeExpression(text){
     normalize(text);
 
 
-  /*
-   * at seven
-   * at seven thirty
-   * at 7
-   */
+  const timePatterns = [
 
-  if(
-    /\bat\s+(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|\d{1,2})\b/.test(t)
-  ){
+    /\bat\s+\d+/,
+    /\bat\s+\w+/,
 
-    return true;
+    /\bin\s+the\s+morning\b/,
+    /\bin\s+the\s+afternoon\b/,
+    /\bin\s+the\s+evening\b/,
+    /\bat\s+night\b/,
 
-  }
+    /\bevery\s+day\b/,
+    /\bevery\s+morning\b/,
+    /\bevery\s+afternoon\b/,
+    /\bevery\s+evening\b/,
+    /\bevery\s+night\b/,
 
+    /\bon\s+monday\b/,
+    /\bon\s+tuesday\b/,
+    /\bon\s+wednesday\b/,
+    /\bon\s+thursday\b/,
+    /\bon\s+friday\b/,
+    /\bon\s+saturday\b/,
+    /\bon\s+sunday\b/,
 
-  /*
-   * in the morning
-   * in the afternoon
-   * in the evening
-   * at night
-   */
+    /\btoday\b/,
+    /\btomorrow\b/,
+    /\btonight\b/,
+    /\byesterday\b/
 
-  if(
-    /\b(in the morning|in the afternoon|in the evening|at night)\b/.test(t)
-  ){
-
-    return true;
-
-  }
-
-
-  /*
-   * every day
-   * every morning
-   * every night
-   */
-
-  if(
-    /\bevery\s+(day|morning|afternoon|evening|night|week)\b/.test(t)
-  ){
-
-    return true;
-
-  }
+  ];
 
 
-  /*
-   * on Monday など
-   */
+  return timePatterns.some(function(pattern){
 
-  if(
-    /\bon\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\b/.test(t)
-  ){
+    return pattern.test(t);
 
-    return true;
-
-  }
-
-
-  /*
-   * today / tomorrow / tonight / yesterday
-   */
-
-  if(
-    /\b(today|tomorrow|tonight|yesterday)\b/.test(t)
-  ){
-
-    return true;
-
-  }
-
-
-  return false;
+  });
 
 }
 
 
-
-/* =========================
-   場所表現チェック
-========================= */
+/* =========================================
+   場所表現
+========================================= */
 
 function hasPlaceExpression(text){
 
@@ -1564,107 +1266,7 @@ function hasPlaceExpression(text){
 
 
   /*
-   * in Japan
-   * in Fukuoka
-   * in my room
-   */
-
-  if(
-    /\bin\s+[a-z]+/.test(t)
-  ){
-
-    return true;
-
-  }
-
-
-  /*
-   * at school
-   * at home
-   * at the park
-   */
-
-  if(
-    /\bat\s+(school|home|the|a|my)\b/.test(t)
-  ){
-
-    return true;
-
-  }
-
-
-  /*
-   * on the desk
-   * on the table
-   */
-
-  if(
-    /\bon\s+(the|my|a)\b/.test(t)
-  ){
-
-    return true;
-
-  }
-
-
-  const places = [
-
-    "school",
-    "home",
-    "park",
-    "library",
-    "store",
-    "shop",
-    "station",
-    "classroom",
-    "room",
-    "house",
-    "fukuoka",
-    "japan"
-
-  ];
-
-
-  for(
-    const place of places
-  ){
-
-    const regex =
-      new RegExp(
-        "\\b" +
-        place +
-        "\\b"
-      );
-
-
-    if(regex.test(t)){
-
-      return true;
-
-    }
-
-  }
-
-
-  return false;
-
-}
-
-
-
-/* =========================
-   Whatの答えチェック
-========================= */
-
-function hasWhatAnswer(text){
-
-  const t =
-    normalize(text);
-
-
-  /*
-   * 時間になっていたら
-   * Whatの答えとしては×
+   * 時間表現を場所と誤認しない
    */
 
   if(hasTimeExpression(t)){
@@ -1674,303 +1276,248 @@ function hasWhatAnswer(text){
   }
 
 
-  /*
-   * 場所になっていたら
-   * Whatの答えとしては×
-   */
+  const placePatterns = [
 
-  if(hasPlaceExpression(t)){
+    /\bin\s+(the|a|my)\s+\w+/,
+    /\bat\s+(the|a|my)\s+\w+/,
 
-    return false;
+    /\bat\s+school\b/,
+    /\bat\s+home\b/,
 
-  }
+    /\bon\s+(the|my|a)\s+\w+/,
+
+    /\bschool\b/,
+    /\bhome\b/,
+    /\bpark\b/,
+    /\blibrary\b/,
+    /\bstore\b/,
+    /\bshop\b/,
+    /\bstation\b/,
+    /\bclassroom\b/,
+    /\broom\b/,
+    /\bhouse\b/,
+    /\bfukuoka\b/,
+    /\bjapan\b/
+
+  ];
 
 
-  return true;
+  return placePatterns.some(function(pattern){
+
+    return pattern.test(t);
+
+  });
 
 }
 
 
+/* =========================================
+   判定
+========================================= */
 
-/* =========================
-   答えの判定
-========================= */
+judgeButton.addEventListener("click", function(){
 
-function judgeAnswer(){
+  if(!currentItem) return;
+
 
   stopRecognition();
 
-  window.speechSynthesis.cancel();
+  isJudging = true;
 
 
-  isJudging =
-    true;
+  const answer =
+    normalize(
+      recognizedText.textContent
+    );
 
 
-  const userText =
-    normalize(recognizedText);
+  if(!answer){
 
-
-  /*
-   * 何も話していない
-   */
-
-  if(!userText){
-
-    judgeResult.textContent =
+    result.textContent =
       "❌ もう一度話してみましょう";
 
-
-    judgeResult.className =
-      "judgeResult resultWrong";
-
+    isJudging = false;
 
     return;
 
   }
 
 
-  const patterns =
-    currentItem.patterns ||
-    [currentItem.pattern];
+  const patternOK =
+    hasPattern(answer);
 
 
-  let patternMatched =
-    false;
+  let typeOK = true;
 
 
-  /*
-   * 基本の答え方を確認
-   */
+  if(currentItem.answerType === "time"){
 
-  for(
-    const pattern of patterns
-  ){
+    typeOK =
+      hasTimeExpression(answer);
 
-    const p =
-      normalize(pattern);
+  }
 
 
-    if(
-      userText === p ||
-      userText.startsWith(
-        p + " "
-      )
-    ){
+  else if(currentItem.answerType === "place"){
 
-      patternMatched =
-        true;
+    typeOK =
+      hasPlaceExpression(answer);
 
-      break;
+  }
+
+
+  else if(currentItem.answerType === "thing"){
+
+    /*
+     * What の答えが
+     * 明らかな場所・時間だけになっていないか確認
+     */
+
+    if(hasTimeExpression(answer)){
+
+      typeOK = false;
+
+    }
+
+    else if(hasPlaceExpression(answer)){
+
+      typeOK = false;
 
     }
 
   }
 
 
-  let correct =
-    false;
+  const correct =
+    patternOK && typeOK;
 
-
-  /*
-   * 基本パターンが違えば×
-   */
-
-  if(!patternMatched){
-
-    correct =
-      false;
-
-  }
-  else{
-
-
-    /*
-     * =====================
-     * When
-     * =====================
-     */
-
-    if(
-      currentItem.answerType === "time"
-    ){
-
-      correct =
-        hasTimeExpression(
-          userText
-        );
-
-    }
-
-
-    /*
-     * =====================
-     * Where
-     * =====================
-     */
-
-    else if(
-      currentItem.answerType === "place"
-    ){
-
-      correct =
-        hasPlaceExpression(
-          userText
-        );
-
-    }
-
-
-    /*
-     * =====================
-     * What
-     * =====================
-     */
-
-    else if(
-      currentItem.answerType === "thing"
-    ){
-
-      correct =
-        hasWhatAnswer(
-          userText
-        );
-
-    }
-
-
-    /*
-     * その他
-     */
-
-    else{
-
-      correct =
-        true;
-
-    }
-
-  }
-
-
-  /*
-   * =====================
-   * 正解
-   * =====================
-   */
 
   if(correct){
 
-    judgeResult.textContent =
+    result.textContent =
       "◎ いい答えです！";
 
 
-    judgeResult.className =
-      "judgeResult resultCorrect";
-
-
     /*
-     * 1.2秒待ってから
-     * 答え方の例を読み上げる
+     * 判定直後にすぐ読み上げず、
+     * 1.2秒待ってから例文を読む
      */
 
-    setTimeout(
-      function(){
+    setTimeout(function(){
 
-        if(!isJudging){
+      if(!isJudging){
 
-          return;
+        return;
 
-        }
+      }
 
+      speakExample();
 
-        speakExample();
-
-      },
-      1200
-    );
+    },1200);
 
   }
-
-
-  /*
-   * =====================
-   * 不正解
-   * =====================
-   */
 
   else{
 
-    judgeResult.textContent =
+    result.textContent =
       "❌ もう一度練習してみましょう";
 
-
-    judgeResult.className =
-      "judgeResult resultWrong";
-
   }
+
+});
+
+
+/* =========================================
+   例文読み上げ
+========================================= */
+
+function speakExample(){
+
+  speechSynthesis.cancel();
+
+  const utterance =
+    new SpeechSynthesisUtterance(
+      currentItem.example
+    );
+
+  utterance.lang = "en-US";
+
+  utterance.rate =
+    getSpeechRate();
+
+
+  speechSynthesis.speak(utterance);
 
 }
 
 
+/* =========================================
+   次の問題
+========================================= */
 
-/* =========================
-   判定ボタン
-========================= */
+nextButton.addEventListener("click", function(){
 
-judgeButton.addEventListener(
-  "click",
-  function(){
+  speechSynthesis.cancel();
 
-    judgeAnswer();
+  stopRecognition();
 
-  }
-);
+  isJudging = false;
 
 
-
-/* =========================
-   次の質問
-========================= */
-
-nextButton.addEventListener(
-  "click",
-  function(){
-
-    stopRecognition();
-
-    window.speechSynthesis.cancel();
+  currentIndex++;
 
 
-    if(
-      currentIndex <
-      currentData.length - 1
-    ){
+  if(currentIndex >= questions.length){
 
-      currentIndex++;
+    currentIndex = 0;
 
-      showQuestion();
+    questions =
+      questions.sort(function(){
 
-    }
-    else{
+        return Math.random() - 0.5;
 
-      alert(
-        "この単元は終了です！"
-      );
-
-
-      currentIndex =
-        0;
-
-
-      showQuestion();
-
-    }
+      });
 
   }
-);
+
+
+  showQuestion();
+
+});
+
+
+/* =========================================
+   速度
+========================================= */
+
+function getSpeechRate(){
+
+  const selected =
+    document.querySelector(
+      'input[name="speed"]:checked'
+    );
+
+
+  return selected
+    ? Number(selected.value)
+    : 1.0;
+
+}
+
+
+/* =========================================
+   単元変更
+========================================= */
+
+unitSelect.addEventListener("change", function(){
+
+  makeQuestionList();
+
+});
+
 
 </script>
 
 </body>
 </html>
+```
