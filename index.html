@@ -1128,7 +1128,7 @@ repeatButton.addEventListener(
    音声認識
 ========================================= */
 
-function createRecognition(){
+ffunction createRecognition(){
 
   const SpeechRecognition =
     window.SpeechRecognition ||
@@ -1189,12 +1189,13 @@ function createRecognition(){
 
       if(text){
 
+        /*
+         * 新しく認識した音声だけを表示する。
+         *
+         * 前の回答には追加しない。
+         */
         recognizedText.textContent =
-          (
-            recognizedText.textContent +
-            " " +
-            text
-          ).trim();
+          text.trim();
 
       }
 
@@ -1216,14 +1217,6 @@ function createRecognition(){
               isListening &&
               !isJudging
             ){
-
-              /*
-               * 音声認識がいったん終了して
-               * 新しく認識を開始するときは、
-               * 前の回答を消す。
-               */
-              recognizedText.textContent = "";
-
 
               try{
 
