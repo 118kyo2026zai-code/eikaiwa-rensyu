@@ -461,3 +461,364 @@ const conversationData = [
     example: "School starts at eight."
   }
 ];
+  /* Yes / No */
+  {
+    unit: "Yes / No",
+    question: "Do you have a pet?",
+    questionJa: "ペットを飼っていますか？",
+    pattern: "I have",
+    answerType: "thing",
+    example: "I have a dog."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you have a brother?",
+    questionJa: "兄弟がいますか？",
+    pattern: "I have",
+    answerType: "thing",
+    example: "I have a brother."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you visit your grandparents?",
+    questionJa: "祖父母を訪ねますか？",
+    pattern: "I visit",
+    answerType: "thing",
+    example: "I visit my grandparents."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you ride a bike?",
+    questionJa: "自転車に乗りますか？",
+    pattern: "I ride",
+    answerType: "thing",
+    example: "I ride a bike."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you take a bus to school?",
+    questionJa: "学校へバスで行きますか？",
+    pattern: "I take",
+    answerType: "thing",
+    example: "I take a bus to school."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you help your family?",
+    questionJa: "家族を手伝いますか？",
+    pattern: "I help",
+    answerType: "thing",
+    example: "I help my family."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you clean your room?",
+    questionJa: "自分の部屋を掃除しますか？",
+    pattern: "I clean",
+    answerType: "thing",
+    example: "I clean my room."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you cook dinner?",
+    questionJa: "夕食を作りますか？",
+    pattern: "I cook",
+    answerType: "thing",
+    example: "I cook dinner."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you wash your hands?",
+    questionJa: "手を洗いますか？",
+    pattern: "I wash",
+    answerType: "thing",
+    example: "I wash my hands."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you use a computer?",
+    questionJa: "コンピューターを使いますか？",
+    pattern: "I use",
+    answerType: "thing",
+    example: "I use a computer."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you speak English?",
+    questionJa: "英語を話しますか？",
+    pattern: "I speak",
+    answerType: "thing",
+    example: "I speak English."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you talk with your friends every day?",
+    questionJa: "毎日友達と話しますか？",
+    pattern: "I talk",
+    answerType: "thing",
+    example: "I talk with my friends every day."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you write in a notebook?",
+    questionJa: "ノートに書きますか？",
+    pattern: "I write",
+    answerType: "thing",
+    example: "I write in a notebook."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you sing?",
+    questionJa: "歌いますか？",
+    pattern: "I sing",
+    answerType: "thing",
+    example: "I sing at school."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you dance?",
+    questionJa: "ダンスをしますか？",
+    pattern: "I dance",
+    answerType: "thing",
+    example: "I dance every day."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you swim?",
+    questionJa: "泳ぎますか？",
+    pattern: "I swim",
+    answerType: "thing",
+    example: "I swim on weekends."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you hike?",
+    questionJa: "ハイキングをしますか？",
+    pattern: "I hike",
+    answerType: "thing",
+    example: "I hike with my family."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you camp?",
+    questionJa: "キャンプをしますか？",
+    pattern: "I camp",
+    answerType: "thing",
+    example: "I camp with my family."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you ski?",
+    questionJa: "スキーをしますか？",
+    pattern: "I ski",
+    answerType: "thing",
+    example: "I ski in winter."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you skate?",
+    questionJa: "スケートをしますか？",
+    pattern: "I skate",
+    answerType: "thing",
+    example: "I skate in winter."
+  },
+
+  /* Yes / No - more */
+  {
+    unit: "Yes / No",
+    question: "Do you know this song?",
+    questionJa: "この歌を知っていますか？",
+    pattern: "I know",
+    answerType: "thing",
+    example: "I know this song."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you need help?",
+    questionJa: "助けが必要ですか？",
+    pattern: "I need",
+    answerType: "thing",
+    example: "I need help."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you love animals?",
+    questionJa: "動物が大好きですか？",
+    pattern: "I love",
+    answerType: "thing",
+    example: "I love animals."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you enjoy music?",
+    questionJa: "音楽を楽しみますか？",
+    pattern: "I enjoy",
+    answerType: "thing",
+    example: "I enjoy music."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you think English is fun?",
+    questionJa: "英語は楽しいと思いますか？",
+    pattern: "I think",
+    answerType: "thing",
+    example: "I think English is fun."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you wait for the bus?",
+    questionJa: "バスを待ちますか？",
+    pattern: "I wait",
+    answerType: "thing",
+    example: "I wait for the bus."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you meet your friends on weekends?",
+    questionJa: "週末に友達に会いますか？",
+    pattern: "I meet",
+    answerType: "thing",
+    example: "I meet my friends on weekends."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you learn English at school?",
+    questionJa: "学校で英語を習いますか？",
+    pattern: "I learn",
+    answerType: "thing",
+    example: "I learn English at school."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you practice every day?",
+    questionJa: "毎日練習しますか？",
+    pattern: "I practice",
+    answerType: "thing",
+    example: "I practice every day."
+  },
+  {
+    unit: "Yes / No",
+    question: "Do you paint pictures?",
+    questionJa: "絵を描きますか？",
+    pattern: "I paint",
+    answerType: "thing",
+    example: "I paint pictures."
+  },
+
+  /* Are you ...? */
+  {
+    unit: "Yes / No",
+    question: "Are you tired?",
+    questionJa: "疲れていますか？",
+    pattern: "I am",
+    answerType: "thing",
+    example: "I am tired."
+  },
+  {
+    unit: "Yes / No",
+    question: "Are you busy?",
+    questionJa: "忙しいですか？",
+    pattern: "I am",
+    answerType: "thing",
+    example: "I am busy."
+  },
+  {
+    unit: "Yes / No",
+    question: "Are you happy?",
+    questionJa: "うれしいですか？",
+    pattern: "I am",
+    answerType: "thing",
+    example: "I am happy."
+  },
+  {
+    unit: "Yes / No",
+    question: "Are you hungry?",
+    questionJa: "おなかがすいていますか？",
+    pattern: "I am",
+    answerType: "thing",
+    example: "I am hungry."
+  },
+  {
+    unit: "Yes / No",
+    question: "Are you ready?",
+    questionJa: "準備はできていますか？",
+    pattern: "I am",
+    answerType: "thing",
+    example: "I am ready."
+  },
+
+  /* Is it ...? */
+  {
+    unit: "Yes / No",
+    question: "Is it cold today?",
+    questionJa: "今日は寒いですか？",
+    pattern: "It is",
+    answerType: "thing",
+    example: "It is cold today."
+  },
+  {
+    unit: "Yes / No",
+    question: "Is it hot today?",
+    questionJa: "今日は暑いですか？",
+    pattern: "It is",
+    answerType: "thing",
+    example: "It is hot today."
+  },
+  {
+    unit: "Yes / No",
+    question: "Is it sunny today?",
+    questionJa: "今日は晴れていますか？",
+    pattern: "It is",
+    answerType: "thing",
+    example: "It is sunny today."
+  },
+  {
+    unit: "Yes / No",
+    question: "Is it raining?",
+    questionJa: "雨が降っていますか？",
+    pattern: "It is",
+    answerType: "thing",
+    example: "It is raining."
+  },
+
+  /* Can you ...? */
+  {
+    unit: "Yes / No",
+    question: "Can you swim?",
+    questionJa: "泳げますか？",
+    pattern: "I can",
+    answerType: "thing",
+    example: "I can swim."
+  },
+  {
+    unit: "Yes / No",
+    question: "Can you ski?",
+    questionJa: "スキーができますか？",
+    pattern: "I can",
+    answerType: "thing",
+    example: "I can ski."
+  },
+  {
+    unit: "Yes / No",
+    question: "Can you sing?",
+    questionJa: "歌えますか？",
+    pattern: "I can",
+    answerType: "thing",
+    example: "I can sing."
+  },
+  {
+    unit: "Yes / No",
+    question: "Can you speak English?",
+    questionJa: "英語を話せますか？",
+    pattern: "I can",
+    answerType: "thing",
+    example: "I can speak English."
+  },
+  {
+    unit: "Yes / No",
+    question: "Can you ride a bike?",
+    questionJa: "自転車に乗れますか？",
+    pattern: "I can",
+    answerType: "thing",
+    example: "I can ride a bike."
+  }
