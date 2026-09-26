@@ -1,5 +1,9 @@
 const conversationData = [
-  /* What */
+
+  /* =========================
+     What
+     ========================= */
+
   {
     unit: "What",
     question: "What do you want?",
@@ -161,7 +165,11 @@ const conversationData = [
     example: "I enjoy dancing."
   },
 
-  /* Where */
+
+  /* =========================
+     Where
+     ========================= */
+
   {
     unit: "Where",
     question: "Where do you live?",
@@ -315,7 +323,11 @@ const conversationData = [
     example: "I take a bath at home."
   },
 
-  /* When */
+
+  /* =========================
+     When
+     ========================= */
+
   {
     unit: "When",
     question: "When do you get up?",
@@ -459,9 +471,13 @@ const conversationData = [
     pattern: "School starts",
     answerType: "time",
     example: "School starts at eight."
-  }
-];
-  /* Yes / No */
+  },
+
+
+  /* =========================
+     Yes / No
+     ========================= */
+
   {
     unit: "Yes / No",
     question: "Do you have a pet?",
@@ -623,7 +639,6 @@ const conversationData = [
     example: "I skate in winter."
   },
 
-  /* Yes / No - more */
   {
     unit: "Yes / No",
     question: "Do you know this song?",
@@ -705,7 +720,6 @@ const conversationData = [
     example: "I paint pictures."
   },
 
-  /* Are you ...? */
   {
     unit: "Yes / No",
     question: "Are you tired?",
@@ -747,7 +761,6 @@ const conversationData = [
     example: "I am ready."
   },
 
-  /* Is it ...? */
   {
     unit: "Yes / No",
     question: "Is it cold today?",
@@ -781,7 +794,6 @@ const conversationData = [
     example: "It is raining."
   },
 
-  /* Can you ...? */
   {
     unit: "Yes / No",
     question: "Can you swim?",
@@ -822,3 +834,5 @@ const conversationData = [
     answerType: "thing",
     example: "I can ride a bike."
   }
+
+];
